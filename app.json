@@ -1,0 +1,46 @@
+{
+  "pages":[
+    "pages/home/home",
+    "pages/promoteDetail/promoteDetail",
+    "pages/payResult/payResult", 
+    "pages/index/index",
+    "pages/caseDetail/caseDetail",
+    "pages/products/products",
+    "pages/productDetail/productDetail",
+    "pages/test/test",
+    "pages/case/case",
+    "pages/remarks/remarks",
+    "pages/remark/remark",
+    "pages/map/map",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "云装无忧",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "selectedColor": "#F24D44",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "images/icon/01icon.png",
+        "selectedIconPath": "images/icon/04icon.png"
+      },
+      {
+        "pagePath": "pages/products/products",
+        "text": "商品",
+        "iconPath": "images/icon/02icon.png",
+        "selectedIconPath": "images/icon/05icon.png"
+      },
+      {
+        "pagePath": "pages/remark/remark",
+        "text": "点评",
+        "iconPath": "images/icon/03icon.png",
+        "selectedIconPath": "images/icon/06icon.png"
+      }
+    ]
+  }
+}
