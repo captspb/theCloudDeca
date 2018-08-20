@@ -1,0 +1,49 @@
+<view>
+    <view class="flex-c-mid pay-result">
+
+      <icon type="success" size="40"/>
+      <text>恭喜您成为本店推广员</text>
+      <text class="eta">推广越多奖励越多，转发给身边有需要的朋友吧</text>
+    </view>
+     
+
+<view class="promotes">
+  <view class="promote-item">推广详情</view>
+  <view class="promote-item">
+    <view class="flex-mid">
+    <image></image>
+    <view>
+      <view class="name">王小二</view>
+      <view class="paid">已付定金</view>
+    </view>
+    </view>
+    <view class="date">2017-2-2</view>
+  </view>
+  <view class="promote-item">
+    <view class="flex-mid">
+    <image></image>
+    <view>
+      <view class="name">王小二</view>
+      <view>已付定金</view>
+    </view>
+    </view>
+    <view class="date">2017-2-2</view>
+  </view>
+  <view class="promote-item">
+    <view class="flex-mid">
+    <image></image>
+    <view>
+      <view class="name">王小二</view>
+      <view>已付定金</view>
+    </view>
+    </view>
+    <view class="date">2017-2-2</view>
+  </view>
+</view>
+    
+       
+
+     
+
+</view> 
+

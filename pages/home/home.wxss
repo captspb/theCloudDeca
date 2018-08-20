@@ -1,0 +1,227 @@
+.home{
+  background: #f4f4f4;
+}
+
+
+.banner {
+  width:100%;
+  height:300rpx;
+}
+.section-top {
+  background: white;
+}
+.shop-contact {
+  height:138rpx;
+  margin:0 30rpx;
+  background: white;
+}
+
+.icon-shop-logo {
+  width:88rpx;
+  height:88rpx;
+  margin-right: 30rpx;
+  border:1rpx solid #F4F4F4;
+}
+
+
+
+.icon-location {
+  width:23rpx;
+  height: 28rpx;
+  margin-right: 10rpx;
+}
+
+.location {
+  font-size: 26rpx;
+  color:#8B8B8D;
+}
+
+.main-business {
+  font-size: 32rpx;
+  color: #000000;
+  margin-bottom: 25rpx;
+}
+
+
+.coupon {
+  width:100%;
+  height: 165rpx;
+  background-size: cover;
+  border-radius: 4rpx;
+  display: flex;
+  margin-bottom: 20rpx;
+  background: white;
+  justify-content: space-between;
+  padding:20rpx;
+}
+
+.coupon .left-1 {
+  font-size:34rpx;
+  color: #000000;
+  margin-bottom: 26rpx
+}
+
+
+.coupon .left-2 {
+  font-size: 30rpx;
+  color: #587EDF;
+ 
+}
+
+.coupon .right-1 {
+  font-size: 24prx;
+  color: #F24D44;
+}
+
+.coupon .right-2 {
+  font-size: 22rpx;
+  color: #F24D44;
+  
+}
+
+.coupon .right-3{
+  background: #F24D44;
+  border-radius: 4rpx;
+  font-size: 26rpx;
+  color: #FFFFFF;
+  text-align: center;
+  width:180rpx;
+  height: 48rpx;
+}
+
+
+.coupons{
+  margin:20rpx;
+}
+.pay-btn {
+  background: #F24D44;
+  border-radius: 100px;
+  color:white;
+  font-size: 26rpx;
+  width: 128rpx;
+  height: 44rpx;
+  text-align: center;
+  line-height: 44rpx;
+}
+
+.case-header {
+  
+  font-size: 34rpx;
+  border-bottom: 1rpx solid #dddddd;
+  height:100rpx;
+  margin-bottom: 50rpx;
+}
+navigator {
+  font-size: 26rpx;
+  color: #8B8B8D;
+}
+
+.case-section {
+  background: #ffffff;
+  padding:30rpx;
+  margin-bottom: 30rpx;
+}
+
+
+.scroll-view-x{
+  display: flex;
+  width: 100%;
+  height: auto;
+  overflow: scroll;
+  background: #fff;
+  white-space: nowrap;
+}
+.scroll-x-item{
+width: 320rpx;
+display: inline-block;
+margin-right:20rpx;
+}
+
+.scroll-x-item image{
+width: 100%;
+display: block;
+height: 200rpx;
+margin-bottom: 15rpx;
+}
+
+.post-type {
+  margin:50rpx;
+}
+
+
+.remark-avatar {
+  width:120rpx;
+  height:120rpx;
+  border-radius: 100%;
+  margin-right: 25rpx;
+}
+
+.remark-item {
+  margin-bottom: 20rpx;
+}
+
+.remark-item .name{
+  font-size:32rpx;
+  color:#000000;
+  line-height: 60rpx;
+}
+
+.remark-item .date{
+
+  font-size:26rpx;
+  color:#8B8B8D;
+  margin-right:30rpx;
+ 
+}
+
+.remark-item .name{
+  font-size:32rpx;
+  color:#000000;
+}
+
+.remark-item .point{
+  font-size:26rpx;
+  color:#8B8B8D;
+  line-height: 40rpx;
+  margin-bottom: 20rpx;
+}
+
+.remark {
+  font-size: 30rpx;
+  color: #000000;
+  line-height: 48rpx;
+}
+.remark-images {
+  margin:20rpx 0 20rpx -12rpx;
+}
+.remark-images image {
+  float: left;
+  display: block;
+  width:180rpx;
+  height:130rpx;
+  margin:0 0 20rpx 12rpx;
+}
+
+.remark-section {
+  padding-right:0;
+}
+
+.add {
+ font-size: 26rpx;
+color: #8B8B8D;
+line-height: 28rpx;
+}
+
+.slide-image {
+  display: block;
+  width:100%;
+  height: 300rpx;
+}
+
+.promote-rule {
+  font-size: 26rpx;
+  color: #8B8B8D;
+  line-height: 28rpx;
+  margin-top:30rpx;
+}
+

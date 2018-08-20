@@ -1,0 +1,67 @@
+<view>
+<view class="remark-wrapper">
+  <view class="success-section flex-c-mid" wx:if="{{remarkOk}}">
+    <icon type="success" size="40"/>
+    <text class="line1">感谢您的点评</text>
+    <text class="line2">10天内签单可凭此页面截图到店领取礼品
+</text>
+    <text class="line3" style='color:#F24D44'>不锈钢锅一个</text>
+  </view>
+  <view wx:if="{{!remarkOk}}">
+    <view class="flex-mid">
+    <image  wx:if="{{!hasUserInfo && canIUse}}"  class="userinfo-avatar" src="../../images/icon/user.png" background-size="cover"></image>
+     <image  wx:else bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </view>
+  </view>
+  <form bindsubmit="formSubmit" wx:if="{{!remarkOk}}">
+  <view class="remark-item">参与点评并签单奖励不锈钢锅一个</view>
+  <view class="flex-mid stars">
+     <text class="remark-item">总体</text>
+     <view>
+       <image bindtap="tapStar" class="star" src="{{item.url}}" wx:for="{{stars}}" wx:for-item="item" data-index="{{index}}"></image>
+     </view>
+  </view>
+   <view class="remark-item">评价</view>
+    <view>
+      <textarea name="remarkText" placeholder="亲，质量如何，外观怎样，性价比怎么样？"></textarea>
+    </view>
+    <view class="remark-item">上传照片</view>
+     <view class="clearfix">
+         <image wx:if="{{src}}" class="remark-img to-delete" src="{{item}}" wx:for="{{src}}" wx:for-item="item" wx:key="id"  data-index="{{index}}" data-src="{{item}}"  bindtap="previewImage" bindlongpress="deleteImage" ></image> 
+          
+        <view class="upload flex-c-mid">
+         <image class="icon-upload" src="../../images/icon/08.png" bindtap="chooseImage"></image>
+         <text>上传照片</text>
+        </view>
+     </view>
+
+     <button formType="submit" class="submit-btn">发表评论</button>
+         
+     </form>
+</view>
+
+ <view class="case-section remark-section"  wx:if="{{remarkOk}}">
+     <view class="case-header flex-mid-be">
+      <view>客户评价</view>
+      <navigator open-type="navigate"  url="../remarks/remarks" style='margin-right:30rpx'>全部评价></navigator>
+    </view> 
+    <view class="remark-items">
+      <view class="remark-item flex-be" wx:for="{{remarksData}}" wx:for-item="item">
+         <image src="{{item.img_url}}" class="remark-avatar"></image>
+         <view style="width:600rpx">
+           <view class="flex-be">
+            <text class="name">{{item.client_name}}</text>
+            <text class="date">{{item.create_time}}</text>
+           </view>
+            <view class="point"> <image wx:for="{{item.score}}" src="../../images/star.png"  class="star"></image></view> 
+          
+            <view class="remark">{{item.description}}</view> 
+           <view class="remark-images" >
+                <image   wx:for="{{item.pic_list}}" wx:for-item="image" src="{{image.img_url}}"></image>
+           </view>
+         </view>
+      </view>
+    </view>
+  </view>
+</view>

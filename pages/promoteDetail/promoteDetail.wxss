@@ -1,0 +1,88 @@
+.gray-panel {
+  width:670rpx;
+  margin:30rpx auto;
+ background: rgba(245,245,245,0.50);
+  border-radius: 2rpx;
+  padding:30rpx 50rpx;
+}
+
+.pay-result icon {
+    margin:60rpx;
+}
+
+.pay-result text {
+    margin-bottom:30rpx;
+    font-size: 36rpx;
+}
+
+.eta {
+  font-size:24rpx !important;
+  color:#8B8B8D;
+}
+
+.title{
+  font-size: 32rpx;
+  margin:20rpx 0;
+}
+.gray{
+  font-size:26rpx;
+  color:#8B8B8D;
+}
+
+.red {
+  color:#F24D44;
+  margin-right:20rpx;
+  font-size:60rpx;
+}
+
+.invite {
+  background: #F24D44;
+  border-radius: 100rpx;
+  width:180rpx;
+  height: 60rpx;
+  color:white;
+  text-align: center;
+  font-size:26rpx;
+  line-height: 60rpx;
+  margin:30rpx auto;
+}
+
+.promote-item {
+  height:120rpx;
+  border-bottom:1rpx solid #E6E6E6;
+  display: flex;
+  
+  justify-content: space-between
+}
+
+.promote-item .name {
+  font-size:30rpx;
+}
+
+.promote-item .date {
+  font-size:24rpx;
+  color:#8B8B8D;
+  margin-top:20rpx;
+}
+.promote-item .paid {
+  width:110rpx;
+  height:32rpx;
+  text-align: center;
+  line-height: 32rpx;
+  color: #F24D44;
+  border:1rpx solid #F24D44;
+  font-size:22rpx;
+  border-radius: 16rpx;
+  margin-top:10rpx;
+}
+
+
+.promote-item image{
+  width:73rpx;
+  height:73rpx;
+  border:1rpx solid red;
+  margin-right:20rpx;
+}
+.promotes {
+  padding:30rpx;
+}

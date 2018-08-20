@@ -1,0 +1,11 @@
+.case-item image{
+  display: block;
+  width:335rpx;
+  height: 260rpx;
+  margin-bottom: 10rpx;
+}
+
+.case-item {
+  float: left;
+  margin:50rpx 0 0 30rpx;
+}

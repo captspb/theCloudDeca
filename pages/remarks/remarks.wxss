@@ -1,0 +1,63 @@
+/* pages/remarks/remarks.wxss */
+
+
+.remark-avatar {
+  width:120rpx;
+  height:120rpx;
+  border-radius: 100%;
+  margin-right: 25rpx;
+}
+
+.remark-item {
+  margin-bottom: 20rpx;
+}
+
+.remark-item .name{
+  font-size:32rpx;
+  color:#000000;
+  line-height: 60rpx;
+}
+
+.remark-item .date{
+
+  font-size:26rpx;
+  color:#8B8B8D;
+  margin-right:30rpx;
+ 
+}
+
+.remark-item .name{
+  font-size:32rpx;
+  color:#000000;
+}
+
+.remark-item .point{
+  font-size:26rpx;
+  color:#8B8B8D;
+  line-height: 40rpx;
+  
+}
+
+.remark {
+  font-size: 30rpx;
+  color: #000000;
+  line-height: 48rpx;
+}
+.remark-images {
+  margin:20rpx 0 20rpx -12rpx;
+}
+.remark-images image {
+  float: left;
+  display: block;
+  width:180rpx;
+  height:130rpx;
+  margin:0 0 20rpx 12rpx;
+}
+
+.remark-section {
+  padding-right:0;
+}
+.remark-items {
+  padding: 30rpx 0 30rpx 30rpx;
+  background: #fff;
+}

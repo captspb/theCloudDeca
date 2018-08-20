@@ -1,0 +1,20 @@
+ <view class="panel" style='padding-top:20rpx'>
+
+ <view class="remark-items">
+      <view class="remark-item flex-be" wx:for="{{remarksData}}" wx:for-item="item">
+         <image src="{{item.img_url}}" class="remark-avatar"></image>
+         <view style="width:600rpx">
+           <view class="flex-be">
+            <text class="name">{{item.client_name}}</text>
+            <text class="date">{{item.create_time}}</text>
+           </view>
+           <view class="point"><image wx:for="{{item.score}}" src="../../images/star.png"  class="star"></image></view>
+           <view class="remark">{{item.description}}</view>
+           <view class="remark-images" >
+                <image wx:for="{{item.pic_list}}" wx:for-item="image" src="{{image.img_url}}"></image>
+           </view>
+         </view>
+      </view>
+    </view>
+     
+ </view>

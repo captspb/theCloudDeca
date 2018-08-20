@@ -1,0 +1,26 @@
+<view class="back">
+  <image class="case-banner" src="{{theCase.img_url}}"></image>
+ 
+  <view class="section">
+    <view class="case-title">{{theCase.case_name}}</view>
+    <view class="case-info">
+      <view>案例地址：{{theCase.address}}</view>
+      <view>案例面积：{{theCase.area}}</view>
+      <view>案例风格：{{theCase.style}}</view>
+      <view>案例清单：{{theCase.products}}</view>
+    </view>
+  </view>
+
+
+<view class="case-detail">  
+
+   <view class="detail-item" wx:for="{{areas}}" wx:for-item="item">
+      <view class="area">{{item.detail_title}}</view>
+      <view class="shot-line"></view>
+      <image src="../../images/banner.jpg"></image>
+      <text>{{item.description}}</text>
+   </view>
+
+
+</view>    
+</view>

@@ -1,0 +1,6 @@
+<view>
+    <view bindtap="toCaseDetail" class="case-item" wx:for="{{allCase}}" wx:for-item="item"  wx:key="id" data-id="{{item.id}}">
+      <image src="{{item.img_url}}" bindtap="postSelect" data-src="{{item.caseUrl}}"></image> 
+      <text>{{item.case_name}}</text>     
+    </view>
+</view>

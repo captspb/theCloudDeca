@@ -1,0 +1,7 @@
+<!--index.wxml-->
+<view class="container">
+   <view class="auth-cover">
+   <view>您尚未登陆或登陆过时，请登陆</view>
+    <button  open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="wechat-longin-btn">微信一键登陆 </button>
+  </view>
+</view>

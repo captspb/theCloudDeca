@@ -1,0 +1,26 @@
+<view class="back">
+  <scroll-view scroll-x class="scroll-view-x tabBar">
+        <view data-tab="{{index}}"  wx:for="{{tabBars}}" wx:for-item="item" bindtap="changeTab" class="{{tabHigh == index ? 'highlighted tabBar-item' : 'tabBar-item'}}" data-title="{{item.category_name}}" data-id="{{item.id}}" wx:key="id">
+          <view class="flex-c-mid">
+            <text  >{{item.category_name}}</text>  
+            <view class="tab-line"> </view>  
+          </view>        
+        </view>
+ </scroll-view>
+ <view style="height:120rpx"></view>
+
+ <view class="product-section">
+  <view class="type-name">{{typeName}}</view>
+  <view class="product-items clearfix">
+    <view class="product-item" wx:for="{{theProducts}}" wx:for-item="item" bindtap="toProductDetail" data-id="{{item.id}}" wx:key="id">
+        <image src="{{item.img_url}}"></image>
+        <view>{{item.product_name}}</view>
+        <view>
+          <text class="tag" wx:for="{{item.tag}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+        </view> 
+        <view><text class="price">定价：{{item.vip_price}}￥</text><text class="old-price">{{item.price}}￥</text></view>
+    </view>
+  </view>
+ </view>
+<view class="see-more">更多商品请到门店查看 →</view>
+</view>
