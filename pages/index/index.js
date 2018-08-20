@@ -28,6 +28,10 @@ Page({
       hasUserInfo: true
     })
 
+    wx.navigateBack({
+      url: '../remark/remark'
+    })
+
    
 
   },

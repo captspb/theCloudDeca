@@ -9,10 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    hadPhoneNumber :1,
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    hadPhoneNumber :0,
     taken:'',
     selectedCase:[],
     remarksData:[],
@@ -25,8 +22,6 @@ Page({
     autoplay: true,
     interval: 5000,
     duration: 1000,
-
-
   },
   
 
@@ -194,9 +189,21 @@ Page({
   },
 
   getPhoneNumber: function (e) {
-    console.log(e.detail.errMsg)
-    console.log(e.detail.iv)
-    console.log(e.detail.encryptedData)
+   
+    var ency = e.detail.encryptedData;
+    var iv = e.detail.iv;
+    var sessionk = wx.getStorageSync('session_key')
+    var token = wx.getStorageSync('token')
+
+    app.globalData.ency = e.detail.ency
+    this.setData({
+      hasPhoneNumber: true
+    })
+
+    console.log('ency:'+ency)
+    console.log('iv:' + iv)
+    console.log('sessionk:' +sessionk)
+    console.log('token:' +token)
     if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
       wx.showModal({
         title: '提示',
@@ -205,12 +212,32 @@ Page({
         success: function (res) { }
       })
     } else {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '同意授权',
-        success: function (res) { }
-      })
+     this.setData({
+       hadPhoneNumber:1
+     })
+     wx.request({
+       method: "POST",
+       url: 'https://www.tosq20.cn/api/api/user/deciphering',
+       data: {
+         encrypdata: ency,
+         ivdata: iv,
+         sessionkey: sessionk
+       },
+       header: {
+         'content-type': 'application/json', // 默认值
+         'Token': token
+       },
+       success: (res) => {
+         console.log("解密成功~~~~~~~将解密的号码保存到本地~~~~~~~~");
+         console.log(res.data.data.data);
+         var phone = JSON.parse(res.data.data.data).phoneNumber;
+         console.log(phone);
+
+       }, fail: function (res) {
+         console.log("解密失败~~~~~~~~~~~~~");
+         console.log(res);
+       }
+     });
     }
   },
 
@@ -234,12 +261,10 @@ Page({
             'Accept': 'application/json',
             'Token': token
           },
-          data: {
-            //传递生成订单要用到的参数
-            // wechat_no:'lh18077025201' ,
+          data: {      
                total_fee: total_fee,
-               campaign_id: id,
-               group_code: 's2ybd2vnb6'
+               campaign_id: id
+              
           },
           success: function (res) {
             console.log(res.data)
@@ -248,7 +273,8 @@ Page({
             var packages = res.data.data.package   //prepay_id
             var paySign = res.data.data.paySign   //签名
             var signType = 'MD5'
-
+            var group_code = res.data.data.group_code   //group_code
+            
             var param = {
               "timeStamp": timeStamp,
               "package": packages,

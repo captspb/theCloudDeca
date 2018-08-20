@@ -12,7 +12,7 @@ App({
     wx.login({
       success: function (res) {
         var code = res.code;//发送给服务器的code  
-        console.log('code:' + res.code)
+      
         if (code) {
           //发起网络请求         
           wx.request({
@@ -24,9 +24,11 @@ App({
               merchant_id: 15
             },
             success: function (res) {
-              console.log(res.data)
+             
               var userId = JSON.parse(res.data).data.userId
               var token = JSON.parse(res.data).data.token
+              var openid = JSON.parse(res.data).data.openid
+              var session_key = JSON.parse(res.data).data.session_key
               wx.setStorage({
                 key: "userId",
                 data: userId
@@ -34,6 +36,14 @@ App({
               wx.setStorage({
                 key: "token",
                 data: token
+              })
+              wx.setStorage({
+                key: "openid",
+                data: openid
+              })
+              wx.setStorage({
+                key: "session_key",
+                data: session_key
               })
 
             }

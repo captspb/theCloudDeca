@@ -56,6 +56,96 @@ Page({
       phoneNumber: '18077025201' //仅为示例，并非真实的电话号码
     })
   },
+  onPay: function (e) {
+    console.log(this.data.product)
+    var id = this.data.product.id
+    var total_fee = this.data.product.vip
+    var token = wx.getStorageSync('token')
+   
+    if (token) {
+      var that = this
+      wx.request({
+        url: 'https://www.tosq20.cn/api/api/ord/buy',
+        method: 'POST',
+        header: {
+          'Accept': 'application/json',
+          'Token': token
+        },
+        data: {
+          total_fee: total_fee,
+          product_id: id
+
+        },
+        success: function (res) {
+          console.log(res.data)
+          var timeStamp = res.data.data.timeStamp //时间戳
+          var nonceStr = res.data.data.nonceStr  //随机数
+          var packages = res.data.data.package   //prepay_id
+          var paySign = res.data.data.paySign   //签名
+          var signType = 'MD5'
+          var group_code = res.data.data.group_code   //group_code
+
+          var param = {
+            "timeStamp": timeStamp,
+            "package": packages,
+            "paySign": paySign,
+            "signType": "MD5",
+            "nonceStr": nonceStr
+          }
+          that.pay(param);
+        }
+      })
+    } else {
+      wx.navigateTo({
+        url: '../index/index',
+      })
+    }
+  },
+
+  pay: function (param) {
+    wx.requestPayment({
+      'timeStamp': param.timeStamp,
+      'nonceStr': param.nonceStr,
+      'package': param.package,
+      'signType': param.signType,
+      'paySign': param.paySign,
+      success: function (res) {
+        console.log(res)
+        wx.navigateBack({
+          delta: 1, // 回退前 delta(默认为1) 页面  
+          success: function (res) {
+            wx.showToast({
+              title: '支付成功',
+              icon: 'success',
+              duration: 2000
+            })
+            //支付成功之后将订单状态修改为已支付
+            // wx.request({
+            //   url: 'localhost:8080/changeOrderState',
+            //   method: 'POST',
+            //   header: { "Content-Type": "application/x-www-form-urlencoded" },
+            //   data: {
+            //     msg: '用户已成功支付，修改订单状态'
+            //   },
+            //   success: function (res) {
+            //     console.log('修改完成')
+            //     //引导用户查看订单
+            //   },
+            //   fail: function (err) {
+            //   }
+            // })
+          },
+          fail: function () {
+          },
+          complete: function () {
+          }
+        })
+      },
+      fail: function () {
+        console.log("支付失败")
+      }
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

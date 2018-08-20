@@ -1,7 +1,7 @@
 <view class="home">
    <view class="auth-cover" wx:if="{{hadPhoneNumber==0}}">
-   <view class="tip-text">需要授权您的公开信息（昵称，头像等）后才能使用，帅威橱柜不会将您的信息提供给第三方，现在登录~</view>
-    <button  open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber" class="wechat-longin-btn">去授权 </button>
+   <view class="tip-text">需要授权您的手机号码后才能使用，帅威橱柜不会将您的信息提供给第三方，现在登录~</view>
+    <button  open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber" class="wechat-longin-btn" >去授权 </button>
   </view>
   <swiper indicator-dots="{{indicatorDots}}"
   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
@@ -27,8 +27,6 @@
     <image src="../../images/icon/09.png" class="icon-phone" bindtap="call"></image>  
   </view>
 </view>
-
- <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">授权手机号</button> 
 
 <view class="coupons" >
     <view class="coupon" bindtap="onPay" wx:for="{{coupons}}"  wx:key="id" data-id="{{item.id}}"  data-deposit="{{item.deposit}}" data-type="{{item.type}}"  wx:if="{{item.type !=3}}" >
