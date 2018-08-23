@@ -11,13 +11,21 @@ Page({
     tabHigh:0,
     theProducts:[],
     typeName:"",
-    type:1
+    type:1,
+    hasPhoneNumber:0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (this.data.hasPhoneNumber == 0) {
+      wx.navigateTo({
+        url: '../phoneTip/phoneTip'
+      })
+    }
+
+
     var _this = this
    //请求产品类目
     wx.request({
@@ -129,7 +137,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+   
   },
 
   /**

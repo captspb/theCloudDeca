@@ -41,8 +41,7 @@ Page({
   onLoad: function (options) {
 
     var token = wx.getStorageSync('token')
-    if (app.globalData.userInfo) {
-      
+    if (app.globalData.userInfo) {  
     
     }else{
       wx.navigateTo({

@@ -8,4 +8,5 @@
       markers="{{markers}}"
       show-location
     ></map>
+    <view bindtap="apen_add">点击打开地图导航</view>
 </view>

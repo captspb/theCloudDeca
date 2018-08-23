@@ -12,6 +12,7 @@
     "pages/remarks/remarks",
     "pages/remark/remark",
     "pages/map/map",
+    "pages/phoneTip/phoneTip",
     "pages/logs/logs"
   ],
   "window":{

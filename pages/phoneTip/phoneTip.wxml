@@ -1,0 +1,7 @@
+<view class="container">
+  <view class="auth-cover" >
+   <view class="tip-text">需要授权您的手机号码后才能使用，帅威橱柜不会将您的信息提供给第三方，现在登录~</view>
+    <button  open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber" class="wechat-longin-btn" >去授权 </button>
+  </view>
+</view>
+
