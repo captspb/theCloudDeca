@@ -87,15 +87,23 @@ view {
   position: fixed;
   top:0;
   left:0;
-  background-color: #fff;
+  background-color: rgba(0,0,0,.5);
   z-index: 999;
 }
-
+.auth-box {
+  width:550rpx;
+  margin:300rpx auto;
+  background: #fff;
+  border-radius: 20rpx;
+  text-align: center;
+  padding-top: 20rpx;
+}
 .wechat-longin-btn {
-  width: 300px;
-  margin:100px auto;
-  background-color: #1AAD19;
-  color: #fff;
+  width: 100%;
+  background-color:#fff;
+  border-top: 1px solid gray;
+  color:green;
+
 }
 
 .tip-text{
@@ -103,4 +111,9 @@ view {
   color: #8B8B8D;
   padding: 30rpx;
   line-height: 50rpx;
+}
+
+::-webkit-scrollbar{
+  height: 0;
+  width:0;
 }

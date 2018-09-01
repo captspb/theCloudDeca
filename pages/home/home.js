@@ -24,14 +24,12 @@ Page({
     duration: 1000,
   },
   
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) { 
     var _this = this
     var token = wx.getStorageSync('token')
-    console.log('token:'+token)
     //获取商户门店信息
     wx.request({
       url: api.merchantInfo,
@@ -54,13 +52,13 @@ Page({
 
     //获取活动
     wx.request({
-      url:'https://www.tosq20.cn/api/api/campaigntype/list?merchant_id=15',
+      url: api.promotions,
       header: {
-        'Accept': 'application/json',
-        'Token': token
+        'Accept': 'application/json'
       },      
       success: function (res) {
-        console.log(res.data.data)    
+        console.log('活动')
+        console.log(res.data.data)
         _this.setData({
           coupons: res.data.data
         })
@@ -72,7 +70,6 @@ Page({
     wx.request({
       url: api.caseListN,
       success: function (res) {
-        console.log(res.data.data)
         res.data.data.forEach(function (item) {
           item.img_url = `${api.baseUrl}${item.img_url}`
         })
@@ -86,7 +83,6 @@ Page({
     wx.request({
       url: api.EvaluateN,
       success: function (res) {
-        console.log(res.data.data)
        res.data.data.forEach(function (item) {
          item.pic_list.forEach(function(t){
            t.img_url = `${api.baseUrl}${t.img_url}`
@@ -103,21 +99,15 @@ Page({
          item.score = remark_stars
          var date = util.formatTime(new Date(time))
          item.create_time = date
-         console.log(date)
          
-       })
-
-       console.log(res.data.data)
+       }) 
         _this.setData({
           remarksData:res.data.data
         })
       }
     })  
 
-
-    console.log(title)
     var thetitle = `云装无忧-${title}`  
-
     wx.setNavigationBarTitle({
       title: thetitle//页面标题为路由参数
     })
@@ -189,7 +179,6 @@ Page({
   },
 
   getPhoneNumber: function (e) {
-   
     var ency = e.detail.encryptedData;
     var iv = e.detail.iv;
     var sessionk = wx.getStorageSync('session_key')
@@ -200,10 +189,6 @@ Page({
       hasPhoneNumber: true
     })
 
-    console.log('ency:'+ency)
-    console.log('iv:' + iv)
-    console.log('sessionk:' +sessionk)
-    console.log('token:' +token)
     if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
       wx.showModal({
         title: '提示',
@@ -240,22 +225,18 @@ Page({
      });
     }
   },
-
   onPay:function(e){
     var id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `../payResult/payResult?id=${id}`
+    })
     var total_fee = e.currentTarget.dataset.deposit
     var type = e.currentTarget.dataset.type
-
-    console.log('id:'+id)
-    console.log('fee:' + total_fee)
-    console.log('type:' + type)
     var token = wx.getStorageSync('token')
-    console.log('1111')
-    console.log(token)
     if (token) {    
     var that = this  
         wx.request({
-          url: 'https://www.tosq20.cn/api/api/pay/prepay',
+          url: 'https://www.tosq20.cn/api/api/campaignDetail/save',
           method: 'POST',
           header: {
             'Accept': 'application/json',
@@ -263,8 +244,9 @@ Page({
           },
           data: {      
                total_fee: total_fee,
-               campaign_id: id
-              
+               type_id: id,
+               product_id:1,
+               remark:'好'                         
           },
           success: function (res) {
             console.log(res.data)
@@ -309,6 +291,8 @@ Page({
               icon: 'success',
               duration: 2000
             })
+
+          
               //支付成功之后将订单状态修改为已支付
               // wx.request({
               //   url: 'localhost:8080/changeOrderState',

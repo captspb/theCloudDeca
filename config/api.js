@@ -25,6 +25,11 @@ module.exports = {
   merchant_id:merchant_id,
   auth: `${NewApiRootUrl}/api/api/auth/login_by_weixin`, //授权
   pay: `${NewApiRootUrl}/api/api/pay/index`, //支付
+  promotions: `${NewApiRootUrl}/api/api/campaigntype/list?merchant_id=${merchant_id}`, //获取活动
+  promotion: `${NewApiRootUrl}/api/api/campaigntype/list?merchant_id=${merchant_id}&id=`, //获取某个活动
+
+
+  
 
 
  

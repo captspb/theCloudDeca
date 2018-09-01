@@ -46,3 +46,10 @@
   line-height: 60rpx;
   margin:30rpx auto;
 }
+
+.result-actions {
+  display: flex;
+  align-item: center;
+  justify-content: center;
+  padding:0 50rpx;
+}

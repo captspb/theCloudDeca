@@ -1,4 +1,5 @@
 const api = require('../../config/api.js');
+const app = getApp()
 var cateId
 
 Page({
@@ -19,12 +20,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (this.data.hasPhoneNumber == 0) {
-      wx.navigateTo({
-        url: '../phoneTip/phoneTip'
-      })
-    }
-
+    var phoneNumber = app.globalData.phoneNumber
+    this.setData({
+      hasPhoneNumber: phoneNumber
+    })
 
     var _this = this
    //请求产品类目
@@ -39,19 +38,17 @@ Page({
         })
 
         //请求产品
-        var proUrl = `${api.proList}&category_id=${category_id}`
+        var proUrl = api.proList
         console.log(proUrl)      
         wx.request({
           url: proUrl,
           success: function (res) {
-                   
+            console.log(res.data)            
             res.data.data.forEach(function (item) {
               item.img_url = `${api.baseUrl}${item.img_url}`
-              console.log(item.tag)
               item.tag = item.tag.split(',')
             })
-            console.log(res.data.data)          
-
+                  
             function Product(id, product_name){
                 this.id = id,
                 this.product_name = product_name
@@ -83,10 +80,53 @@ Page({
       }
     })  
 
+  },
+  getPhoneNumber: function (e) {
+    var ency = e.detail.encryptedData;
+    var iv = e.detail.iv;
+    var sessionk = wx.getStorageSync('session_key')
+    var token = wx.getStorageSync('token')
+    app.globalData.ency = e.detail.ency
    
+    console.log('ency:' + ency)
+    console.log('iv:' + iv)
+    console.log('sessionk:' + sessionk)
+    console.log('token:' + token)
+    if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
+      wx.showModal({
+        title: '提示',
+        showCancel: false,
+        content: '未授权',
+        success: function (res) { }
+      })
+    } else {
+      this.setData({
+        hasPhoneNumber: 1
+      })
+      wx.request({
+        method: "POST",
+        url: 'https://www.tosq20.cn/api/api/user/deciphering',
+        data: {
+          encrypdata: ency,
+          ivdata: iv,
+          sessionkey: sessionk
+        },
+        header: {
+          'content-type': 'application/json', // 默认值
+          'Token': token
+        },
+        success: (res) => {
+          console.log("解密成功~~~~~~~将解密的号码保存到本地~~~~~~~~");
+          console.log(res.data.data.data);
+          var phone = JSON.parse(res.data.data.data).phoneNumber;
+          console.log(phone);
 
-
-
+        }, fail: function (res) {
+          console.log("解密失败~~~~~~~~~~~~~");
+          console.log(res);
+        }
+      });
+    }
   },
   changeTab:function(e){
     var tabID = e.currentTarget.dataset.tab;
@@ -94,12 +134,14 @@ Page({
     var id = e.currentTarget.dataset.id;
     console.log(id);
     var _this = this;
+    
+    var proUrl = id==15 ? api.proList : `${api.proList}&category_id=${id}`;
     wx.request({
-      url: `${api.proList}&category_id=${id}`,
+      url: proUrl,
       success: function (res) {
-        console.log(res.data.data)
         res.data.data.forEach(function (item) {
           item.img_url = `${api.baseUrl}${item.img_url}`
+          item.tag = item.tag.split(',')
         })
         _this.setData({
           theProducts: res.data.data,

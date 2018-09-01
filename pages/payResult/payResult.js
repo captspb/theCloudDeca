@@ -1,3 +1,4 @@
+const api = require('../../config/api.js');
 // pages/payResult/payResult.js
 Page({
 
@@ -12,7 +13,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+      console.log(options.id)
+      var id = options.id
+    //请求刚完成支付的活动
+    wx.request({
+      url: `${api.promotion}${id}`,
+      header: {
+        'Accept': 'application/json'
+      },
+      success: function (res) {
+        console.log('活动')
+        console.log(res.data.data)
+        // _this.setData({
+        //   coupons: res.data.data
+        // })
+      }
+    })
+
   },
 
   /**

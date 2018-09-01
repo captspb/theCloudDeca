@@ -1,4 +1,11 @@
 <view class="back">
+   <view class="auth-cover" wx:if="{{hasPhoneNumber==0}}">
+    <view class="auth-box">
+      <view>温馨提示</view>
+      <view class="tip-text">需要授权您的手机号码后才能使用，帅威橱柜不会将您的信息提供给第三方，现在登录~   </view>
+      <button  open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber" class="wechat-longin-btn" >开启授权 </button>
+    </view>
+  </view>
   <scroll-view scroll-x class="scroll-view-x tabBar">
         <view data-tab="{{index}}"  wx:for="{{tabBars}}" wx:for-item="item" bindtap="changeTab" class="{{tabHigh == index ? 'highlighted tabBar-item' : 'tabBar-item'}}" data-title="{{item.category_name}}" data-id="{{item.id}}" wx:key="id">
           <view class="flex-c-mid">

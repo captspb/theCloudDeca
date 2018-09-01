@@ -6,7 +6,6 @@ var src = [];
 var starNum = 0;
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -41,13 +40,13 @@ Page({
   onLoad: function (options) {
 
     var token = wx.getStorageSync('token')
-    if (app.globalData.userInfo) {  
+    // if (app.globalData.userInfo) {  
     
-    }else{
-      wx.navigateTo({
-        url: '../index/index'
-      })
-    }
+    // }else{
+    //   wx.navigateTo({
+    //     url: '../index/index'
+    //   })
+    // }
 
 
     if (app.globalData.userInfo) {
@@ -112,44 +111,44 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-    wx.login({
-      success: function (res) {
-        var code = res.code;//发送给服务器的code  
-        console.log('code:'+res.code)
-        if (code) {
-          //发起网络请求         
-          wx.request({
-            url: api.auth,
-            method: "POST",
-            dataType: "application/json",
-            data: {
-              code: code,
-              merchant_id: api.merchant_id      
-            },
-            success: function (res) {
-              console.log(res.data)
-              var userId = JSON.parse(res.data).data.userId
-              var token = JSON.parse(res.data).data.token
-              wx.setStorage({
-                key: "userId",
-                data: userId
-              })
-              wx.setStorage({
-                key: "token",
-                data: token
-              })
-              wx.navigateBack({
-                delta: 1
-              })
+    // wx.login({
+    //   success: function (res) {
+    //     var code = res.code;//发送给服务器的code  
+    //     console.log('code:'+res.code)
+    //     if (code) {
+    //       //发起网络请求         
+    //       wx.request({
+    //         url: api.auth,
+    //         method: "POST",
+    //         dataType: "application/json",
+    //         data: {
+    //           code: code,
+    //           merchant_id: api.merchant_id      
+    //         },
+    //         success: function (res) {
+    //           console.log(res.data)
+    //           var userId = JSON.parse(res.data).data.userId
+    //           var token = JSON.parse(res.data).data.token
+    //           wx.setStorage({
+    //             key: "userId",
+    //             data: userId
+    //           })
+    //           wx.setStorage({
+    //             key: "token",
+    //             data: token
+    //           })
+    //           wx.navigateBack({
+    //             delta: 1
+    //           })
              
-            }
-          })
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
+    //         }
+    //       })
+    //     } else {
+    //       console.log('登录失败！' + res.errMsg)
+    //     }
 
-      }
-    })
+    //   }
+    // })
 
   },
 

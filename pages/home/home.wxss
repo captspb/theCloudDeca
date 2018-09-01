@@ -87,6 +87,7 @@
   text-align: center;
   width:180rpx;
   height: 48rpx;
+  line-height: 48rpx;
 }
 
 

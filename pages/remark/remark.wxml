@@ -1,4 +1,12 @@
 <view>
+   <view class="auth-cover"  wx:if="{{!hasUserInfo && canIUse}}">
+    <view class="auth-box">
+      <view>温馨提示</view>
+      <view class="tip-text">需要授权您的手机号码后才能使用，帅威橱柜不会将您的信息提供给第三方，现在登录~   </view>
+      <button  open-type="getUserInfo" bindgetuserinfo="getUserInfo"class="wechat-longin-btn" >开启授权 </button>
+    </view>
+  </view>
+
 <view class="remark-wrapper">
   <view class="success-section flex-c-mid" wx:if="{{remarkOk}}">
     <icon type="success" size="40"/>

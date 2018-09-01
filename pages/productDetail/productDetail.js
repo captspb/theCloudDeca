@@ -1,21 +1,7 @@
 const util = require('../../utils/util.js');
 const api = require('../../config/api.js');
+const app = getApp()
 
-var theProduct = {
-  name: "实木多层板",
-  url: "../../images/banner.jpg",
-  price: 30,
-  oldPrice: 58,
-  tags: [
-    {
-      tagName: "多层木dd"
-    },
-    {
-      tagName: "特价ff"
-    }
-  ],
-  desc: "四号公路和刚开始历史的回顾i获得过，李赛贷后管理赛后过来撒获得广大干部你，里算个礼俗和管理萨格吧"
-}
 Page({
 
   /**
@@ -59,13 +45,13 @@ Page({
   onPay: function (e) {
     console.log(this.data.product)
     var id = this.data.product.id
-    var total_fee = this.data.product.vip
+    var total_fee = this.data.product.vip_price
     var token = wx.getStorageSync('token')
    
     if (token) {
       var that = this
       wx.request({
-        url: 'https://www.tosq20.cn/api/api/ord/buy',
+        url: 'https://www.tosq20.cn/api/api/order/buy',
         method: 'POST',
         header: {
           'Accept': 'application/json',
@@ -73,8 +59,7 @@ Page({
         },
         data: {
           total_fee: total_fee,
-          product_id: id
-
+          product_id: id  
         },
         success: function (res) {
           console.log(res.data)

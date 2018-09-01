@@ -28,7 +28,7 @@
 <view class="coupons" >
     <view class="coupon" bindtap="onPay" wx:for="{{coupons}}"  wx:key="id" data-id="{{item.id}}"  data-deposit="{{item.deposit}}" data-type="{{item.type}}"  wx:if="{{item.type !=3}}" >
       <view class="left">
-        <view class="left-1">{{item.name}}</view>
+        <view class="left-1">{{item.description}}人{{item.name}}（还差{{item.description-item.grouper}}人）</view>
         <view class="left-2">{{item.rule}}</view>
       </view>
       <view class="right">

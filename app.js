@@ -7,12 +7,11 @@ App({
     wx.setStorageSync('logs', logs)
     // var token = wx.getStorageSync('token')
     // console.log(token)
-   
+   var _this = this
     // 登录
     wx.login({
       success: function (res) {
-        var code = res.code;//发送给服务器的code  
-      
+        var code = res.code;//发送给服务器的code        
         if (code) {
           //发起网络请求         
           wx.request({
@@ -24,11 +23,12 @@ App({
               merchant_id: 15
             },
             success: function (res) {
-             
+              console.log(res.data)
               var userId = JSON.parse(res.data).data.userId
               var token = JSON.parse(res.data).data.token
               var openid = JSON.parse(res.data).data.openid
               var session_key = JSON.parse(res.data).data.session_key
+              _this.globalData.phoneNumber = JSON.parse(res.data).data.gethone
               wx.setStorage({
                 key: "userId",
                 data: userId
@@ -77,7 +77,8 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    phoneNumber:null
   }
   
 
