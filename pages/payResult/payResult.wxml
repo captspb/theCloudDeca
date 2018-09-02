@@ -27,7 +27,7 @@
         <view>
            
             <view class="result-actions">
-                <button open-type="share" class="invite"  wx:if="{{result.description-result.grouper==0}}">邀请好友</button>
+                <button open-type="share" class="invite"  wx:if="{{result.description-result.grouper>0}}">邀请好友</button>
                <view class="btn-return-home" bindtap="tohome">返回首页</view>
                
             </view>

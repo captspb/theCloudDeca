@@ -348,6 +348,9 @@ Page({
               "nonceStr": nonceStr
             }
             that.pay(param);
+            wx.navigateTo({
+              url: `../payResult/payResult?id=${promote_id}`
+            })
           }
         })
       }
@@ -369,15 +372,17 @@ Page({
         wx.navigateBack({
           delta: 1, // 回退前 delta(默认为1) 页面  
           success: function (res) {
+          
             wx.showToast({
               title: '支付成功',
               icon: 'success',
-              duration: 2000
+              duration: 1000
             })
-
             wx.navigateTo({
               url: `../payResult/payResult?id=${promote_id}`
             })
+
+            
           
           
               //支付成功之后将订单状态修改为已支付
@@ -419,6 +424,21 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+
+    //获取活动
+    wx.request({
+      url: api.promotions,
+      header: {
+        'Accept': 'application/json'
+      },
+      success: function (res) {
+        console.log('活动')
+        console.log(res.data.data)
+        _this.setData({
+          coupons: res.data.data
+        })
+      }
+    })  
     //获取最新n条评价
     var _this = this
     wx.request({
