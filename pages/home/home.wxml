@@ -1,5 +1,4 @@
 <view class="home">
-  
   <swiper indicator-dots="{{indicatorDots}}"
   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
   <block wx:for="{{banners}}" wx:key="id">
@@ -12,9 +11,9 @@
 <view class="section-top">
   <view class="flex-mid-be shop-contact">
     <view  style="width:600rpx;" class="flex" bindtap="showMap">
-      <image src="../../images/star.png" class="icon-shop-logo"></image>
+      <image src="{{logo_url}}" class="icon-shop-logo"></image>
       <view class="flex-c">
-        <text class="main-business">{{main_business}}</text>
+        <text class="main-business">主营：{{main_business}}</text>
         <view class="flex-mid location">
           <image class="icon-location" src="../../images/icon/14.png"></image>
           <text class="add">{{address}}</text>
@@ -26,9 +25,11 @@
 </view>
 
 <view class="coupons" >
-    <view class="coupon" bindtap="onPay" wx:for="{{coupons}}"  wx:key="id" data-id="{{item.id}}"  data-deposit="{{item.deposit}}" data-type="{{item.type}}"  wx:if="{{item.type !=3}}" >
+    <view class="coupon" bindtap="onPay" wx:for="{{coupons}}"  wx:key="id" data-id="{{item.id}}"  data-deposit="{{item.deposit}}" data-type="{{item.type}}"  data-description="{{item.description}}"  data-grouper="{{item.grouper}}"  wx:if="{{item.type !=3}}" >
       <view class="left">
-        <view class="left-1">{{item.description}}人{{item.name}}（还差{{item.description-item.grouper}}人）</view>
+        <view class="left-1"  wx:if="{{item.type ==2}}" >{{item.description}}人{{item.name}}（还差{{item.description-item.grouper}}人）</view>
+         <view class="left-1"  wx:if="{{item.type ==1}}" >{{item.name}}</view>
+
         <view class="left-2">{{item.rule}}</view>
       </view>
       <view class="right">
@@ -36,7 +37,16 @@
         <view  class="right-2">预付100抵500</view>
         
         <view wx:if="{{item.type ==1}}"  class="right-3">支付定金</view>
-        <view wx:if="{{item.type ==2}}"  class="right-3">发起团购</view>
+
+        <view wx:if="{{item.type ==2&&item.description!=item.grouper}}"  class="right-3">
+            参与组团  
+        </view>
+
+         <view wx:if="{{item.type ==2&&item.description==item.grouper}}"  class="right-3 finished">
+            组团成功
+        </view>
+
+
        
       </view>
     </view>
@@ -75,7 +85,15 @@
             </view>
            <view class="remark">{{item.description}}</view>
            <view class="remark-images" >
-                <image wx:key="unique" wx:for="{{item.pic_list}}" wx:for-item="image" src="{{image.img_url}}" wx:key="id"></image>
+                <image wx:key="unique" 
+                wx:for="{{item.pic_list}}" 
+                wx:for-item="image" 
+                src="{{image.img_url}}" 
+                wx:key="id" 
+                bindtap="previewImage" 
+                data-src="{{image.img_url}}" 
+                data-srcs="{{item.pic_list}}">
+                </image>
            </view>
          </view>
       </view>

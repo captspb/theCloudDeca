@@ -38,19 +38,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
     var token = wx.getStorageSync('token')
-    // if (app.globalData.userInfo) {  
-    
-    // }else{
-    //   wx.navigateTo({
-    //     url: '../index/index'
-    //   })
-    // }
-
-
     if (app.globalData.userInfo) {
-      console.log('dfdf')
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
@@ -105,50 +94,25 @@ Page({
     // })
   },
   getUserInfo: function (e) {
+   var _this = this
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-    // wx.login({
-    //   success: function (res) {
-    //     var code = res.code;//发送给服务器的code  
-    //     console.log('code:'+res.code)
-    //     if (code) {
-    //       //发起网络请求         
-    //       wx.request({
-    //         url: api.auth,
-    //         method: "POST",
-    //         dataType: "application/json",
-    //         data: {
-    //           code: code,
-    //           merchant_id: api.merchant_id      
-    //         },
-    //         success: function (res) {
-    //           console.log(res.data)
-    //           var userId = JSON.parse(res.data).data.userId
-    //           var token = JSON.parse(res.data).data.token
-    //           wx.setStorage({
-    //             key: "userId",
-    //             data: userId
-    //           })
-    //           wx.setStorage({
-    //             key: "token",
-    //             data: token
-    //           })
-    //           wx.navigateBack({
-    //             delta: 1
-    //           })
-             
-    //         }
-    //       })
-    //     } else {
-    //       console.log('登录失败！' + res.errMsg)
-    //     }
 
-    //   }
-    // })
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+         console.log(111)
+          _this.setData({
+            not_auth:1
+          })
+        }
+      }
+    })
+
 
   },
 
@@ -202,8 +166,7 @@ Page({
   },
 
   previewImage:function(e){
-
-    var current = e.currentTarget.dataset.src;//获取当前长按图片下标
+    var current = e.currentTarget.dataset.src;//获取当前图片下标
     wx.previewImage({
       current: current, // 当前显示图片的http链接
       urls: this.data.src // 需要预览的图片http链接列表
@@ -232,15 +195,28 @@ Page({
   },
 
   formSubmit: function (e) {
+    var order_no = app.globalData.order_no
+    var name = '匿名'
+    var avatarUrl = '../../images/icon/user.png'
     var token = wx.getStorageSync('token')
     console.log('评论')
     var remarkText = e.detail.value.remarkText
-    var name = this.data.userInfo.nickName
-    var avatarUrl = this.data.userInfo.avatarUrl
+    if (this.data.userInfo){
+      name = this.data.userInfo.nickName
+      avatarUrl = this.data.userInfo.avatarUrl
+    }
+    
     console.log('头像'+ avatarUrl)
     var _this = this
 
+    if (order_no){
+
+   
+
    if(starNum&&remarkText&&avatarUrl){
+     console.log(remarkText)
+     console.log(remarkText.length)
+     if (remarkText.length>=30){   
     wx.getStorage({
       key: 'userId',
       success: function (res) {
@@ -389,11 +365,25 @@ Page({
             
       }
     })}else{
+       wx.showToast({
+         title: '评论不能少于30个字',
+         icon: 'none',
+         duration: 2000
+       })
+
+    } }else{
      wx.showToast({
        title: '评论信息不完整',
        icon: 'none',
        duration: 2000
      })
+    }
+    }else{
+      wx.showToast({
+        title: '未支付不能评论',
+        icon: 'none',
+        duration: 2000
+      })
     }
    
   },

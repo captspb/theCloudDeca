@@ -3,7 +3,9 @@
 
       <icon type="success" size="40"/>
       <text>您已经成功支付{{bookFee}}元定金</text>
-      <text class="eta">组团还差{{num_left}}人</text>
+      <text class="eta" wx:if="{{result.description-result.grouper>0}}">组团还差{{result.description-result.grouper}}人</text>
+       <text class="eta" wx:else>组团成功</text>
+
     </view>
      
 
@@ -14,7 +16,7 @@
             <view class="title">享受优惠</view>
             <view class="flex-mid">
               <text class="red">·</text>
-              <text class="gray">定金100顶500</text>
+              <text class="gray">{{result.rule}}</text>
             </view>
               <view class="flex-mid">
               <text class="red">·</text>
@@ -23,14 +25,11 @@
         </view>  
 
         <view>
-            <view class="title">组团结果</view>
-            <view class="flex-mid">
-              <text class="red">·</text>
-              <text class="gray">组团成功</text>
-            </view>
+           
             <view class="result-actions">
-                <view class="invite">邀请好友</view>
-                <view class="invite">返回首页</view>
+                <button open-type="share" class="invite"  wx:if="{{result.description-result.grouper==0}}">邀请好友</button>
+               <view class="btn-return-home" bindtap="tohome">返回首页</view>
+               
             </view>
             
         </view>  

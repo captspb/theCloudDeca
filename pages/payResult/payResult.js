@@ -6,13 +6,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    // wx.showShareMenu({
+    //  withShareTicket: true
+    // })
+    var _this = this
       console.log(options.id)
       var id = options.id
     //请求刚完成支付的活动
@@ -24,11 +29,36 @@ Page({
       success: function (res) {
         console.log('活动')
         console.log(res.data.data)
-        // _this.setData({
-        //   coupons: res.data.data
-        // })
+        _this.setData({
+          result: res.data.data[0]
+        })
       }
     })
+
+  },
+
+  tohome:function(){
+      wx.switchTab({
+        url: '../home/home',
+      })
+  },
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '哈哈哈',
+      path: '/pages/home/home',
+      imageUrl: '/images/she.jpg',
+      success: (res) => {
+        console.log("转发成功", res);
+      },
+      fail: (res) => {
+        console.log("转发失败", res);
+      }
+    }
+  
 
   },
 

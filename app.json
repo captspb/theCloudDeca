@@ -1,9 +1,8 @@
 {
   "pages":[
-  
     "pages/home/home",
     "pages/promoteDetail/promoteDetail",
-      "pages/payResult/payResult",
+    "pages/payResult/payResult",
     "pages/index/index",
     "pages/caseDetail/caseDetail",
     "pages/products/products",

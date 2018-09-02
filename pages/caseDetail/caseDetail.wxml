@@ -17,7 +17,7 @@
    <view class="detail-item" wx:for="{{areas}}" wx:for-item="item">
       <view class="area">{{item.detail_title}}</view>
       <view class="shot-line"></view>
-      <image src="../../images/banner.jpg"></image>
+      <!-- <image src="../../images/banner.jpg"></image> -->
       <text>{{item.description}}</text>
    </view>
 

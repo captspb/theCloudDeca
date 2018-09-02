@@ -29,6 +29,7 @@ App({
               var openid = JSON.parse(res.data).data.openid
               var session_key = JSON.parse(res.data).data.session_key
               _this.globalData.phoneNumber = JSON.parse(res.data).data.gethone
+              _this.globalData.order_no = JSON.parse(res.data).data.order_no
               wx.setStorage({
                 key: "userId",
                 data: userId
@@ -78,7 +79,8 @@ App({
   },
   globalData: {
     userInfo: null,
-    phoneNumber:null
+    phoneNumber:null,
+    order_no: null
   }
   
 

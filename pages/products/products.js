@@ -20,6 +20,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中',
+    })
     var phoneNumber = app.globalData.phoneNumber
     this.setData({
       hasPhoneNumber: phoneNumber
@@ -38,12 +41,13 @@ Page({
         })
 
         //请求产品
-        var proUrl = api.proList
+        var proUrl = `${api.proList}&category_id=${category_id}`
         console.log(proUrl)      
         wx.request({
           url: proUrl,
           success: function (res) {
-            console.log(res.data)            
+            console.log(res.data.data)        
+
             res.data.data.forEach(function (item) {
               item.img_url = `${api.baseUrl}${item.img_url}`
               item.tag = item.tag.split(',')
@@ -71,7 +75,9 @@ Page({
               let val = map[key]            
                 ret.push(val)         
             }
-            console.log(ret)          
+            console.log(res.data.data) 
+
+
             _this.setData({
               theProducts: res.data.data
             })
@@ -135,9 +141,8 @@ Page({
     console.log(id);
     var _this = this;
     
-    var proUrl = id==15 ? api.proList : `${api.proList}&category_id=${id}`;
     wx.request({
-      url: proUrl,
+      url: `${api.proList}&category_id=${id}`,
       success: function (res) {
         res.data.data.forEach(function (item) {
           item.img_url = `${api.baseUrl}${item.img_url}`
@@ -172,7 +177,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    wx.hideLoading()  
   },
 
   /**

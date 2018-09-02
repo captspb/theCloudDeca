@@ -47,12 +47,12 @@
   width:100%;
   height: 165rpx;
   background-size: cover;
-  border-radius: 4rpx;
+  border-radius: 8rpx;
   display: flex;
   margin-bottom: 20rpx;
   background: white;
   justify-content: space-between;
-  padding:20rpx;
+  padding: 15rpx 20rpx;
 }
 
 .coupon .left-1 {
@@ -76,12 +76,13 @@
 .coupon .right-2 {
   font-size: 22rpx;
   color: #F24D44;
+  margin-bottom: 7rpx
   
 }
 
 .coupon .right-3{
   background: #F24D44;
-  border-radius: 4rpx;
+  border-radius: 8rpx;
   font-size: 26rpx;
   color: #FFFFFF;
   text-align: center;
@@ -226,3 +227,7 @@ line-height: 28rpx;
   margin-top:30rpx;
 }
 
+
+.finished {
+  background: #8B8B8D !important;
+}

@@ -14,6 +14,7 @@
   padding:30rpx;
   margin-top:20rpx;
   background: #fff;
+  min-height: 750rpx;
 }
 
 image{

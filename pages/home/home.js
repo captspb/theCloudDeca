@@ -3,6 +3,7 @@ const api = require('../../config/api.js');
 const app = getApp()
 var title = "帅威橱柜"
 // pages/home/home.js
+var promote_id
 Page({
 
   /**
@@ -28,6 +29,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) { 
+
+    wx.showLoading({
+      title: '加载中',
+    })
     var _this = this
     var token = wx.getStorageSync('token')
     //获取商户门店信息
@@ -35,21 +40,31 @@ Page({
       url: api.merchantInfo,
       success: function (res) {
         console.log(res.data.data[0])
+        var merchant_name = res.data.data[0].merchant_name
         var main_business = res.data.data[0].main_business
         var address = res.data.data[0].address
         var phone_no = res.data.data[0].phone_no
         var lat = res.data.data[0].lat
-        var lng = res.data.data[0].lng    
+        var lng = res.data.data[0].lng  
+        var logo = res.data.data[0].logo  
+        var logo_url = `${api.baseUrl}${logo}`
+        
         _this.setData({
           main_business: main_business,
           address: address,
           phone_no: phone_no,
           latitude: lat,
-          longitude: lng
+          longitude: lng,
+          logo_url: logo_url,
+          merchant_name: merchant_name
+          
+        })
+
+        wx.setNavigationBarTitle({
+          title: merchant_name//页面标题为路由参数
         })
       }
     })  
-
     //获取活动
     wx.request({
       url: api.promotions,
@@ -64,8 +79,6 @@ Page({
         })
       }
     })  
-
-
     //获取最新n条案例
     wx.request({
       url: api.caseListN,
@@ -78,7 +91,6 @@ Page({
         })
       }
     })  
-
     //获取最新n条评价
     wx.request({
       url: api.EvaluateN,
@@ -88,7 +100,6 @@ Page({
            t.img_url = `${api.baseUrl}${t.img_url}`
          })
        })
-
        res.data.data.forEach(function (item) {
          var score = item.score
          var time =item.create_time    
@@ -106,16 +117,86 @@ Page({
         })
       }
     })  
+   
+  },
 
-    var thetitle = `云装无忧-${title}`  
-    wx.setNavigationBarTitle({
-      title: thetitle//页面标题为路由参数
+  previewImage: function (e) {
+    var current = e.currentTarget.dataset.src;//获取当前图片下标
+    var srcs = e.currentTarget.dataset.srcs;
+    console.log(current)
+    console.log(srcs)
+    var urls =[]
+    srcs.forEach(function(item){
+        var url = item.img_url
+        urls.push(url)
+    })
+
+    wx.previewImage({
+      current: current, // 当前显示图片的http链接
+      urls: urls // 需要预览的图片http链接列表
     })
   },
+
   showMap: function(){
-    wx.navigateTo({
-      url: `../map/map?lat=${this.data.latitude}&&lng=${this.data.longitude}`
+    // wx.navigateTo({
+    //   url: `../map/map?lat=${this.data.latitude}&&lng=${this.data.longitude}`
+    // })
+
+    var latitude = Number(this.data.latitude)
+    var longitude = Number(this.data.longitude)
+
+    var address = this.data.address
+
+    wx.getSetting({
+      success: (res) => {
+        if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {
+          wx.showModal({
+            title: '是否授权当前位置',
+            content: '需要获取您的地理位置，请确认授权，否则地图定位功能将无法使用',
+            success: function (res) {
+              if (res.cancel) {
+                console.info("1授权失败返回数据");
+
+              } else if (res.confirm) {
+                //village_LBS(that);
+                wx.openSetting({
+                  success: function (data) {
+                    if (data.authSetting["scope.userLocation"] == true) {
+                      wx.showToast({
+                        title: '授权成功',
+                        icon: 'success',
+                        duration: 5000
+                      })
+                      wx.openLocation({
+                        latitude: latitude,
+                        longitude: longitude,
+                        name: address,
+                        scale: 28
+                      })
+                    } else {
+                      wx.showToast({
+                        title: '授权失败',
+                        icon: 'success',
+                        duration: 5000
+                      })
+                    }
+                  }
+                })
+              }
+            }
+          })
+        } else {
+          wx.openLocation({
+            latitude: latitude,
+            longitude: longitude,
+            name: address,
+            scale: 28
+          })
+        }
+      }
     })
+
+
   },
   getUserInfo: function (e) {
     console.log(e)
@@ -183,12 +264,10 @@ Page({
     var iv = e.detail.iv;
     var sessionk = wx.getStorageSync('session_key')
     var token = wx.getStorageSync('token')
-
     app.globalData.ency = e.detail.ency
     this.setData({
       hasPhoneNumber: true
     })
-
     if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
       wx.showModal({
         title: '提示',
@@ -213,28 +292,32 @@ Page({
          'Token': token
        },
        success: (res) => {
-         console.log("解密成功~~~~~~~将解密的号码保存到本地~~~~~~~~");
-         console.log(res.data.data.data);
          var phone = JSON.parse(res.data.data.data).phoneNumber;
-         console.log(phone);
-
        }, fail: function (res) {
-         console.log("解密失败~~~~~~~~~~~~~");
-         console.log(res);
+      
        }
      });
     }
   },
   onPay:function(e){
-    var id = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: `../payResult/payResult?id=${id}`
-    })
+    promote_id = e.currentTarget.dataset.id 
+   
     var total_fee = e.currentTarget.dataset.deposit
     var type = e.currentTarget.dataset.type
+    var description = e.currentTarget.dataset.description
+    var grouper = e.currentTarget.dataset.grouper
+    var left = description - grouper
     var token = wx.getStorageSync('token')
-    if (token) {    
     var that = this  
+
+    if(token){
+      if (type==2&&left==0) {   
+          wx.showToast({
+            title: '组团已满',
+            icon: 'none',
+            duration: 2000
+          })
+      }else{
         wx.request({
           url: 'https://www.tosq20.cn/api/api/campaignDetail/save',
           method: 'POST',
@@ -242,21 +325,21 @@ Page({
             'Accept': 'application/json',
             'Token': token
           },
-          data: {      
-               total_fee: total_fee,
-               type_id: id,
-               product_id:1,
-               remark:'好'                         
+          data: {
+            total_fee: total_fee,
+            type_id: promote_id,
+            product_id: 1,
+            remark: '好'
           },
           success: function (res) {
-            console.log(res.data)
+            console.log(res)
             var timeStamp = res.data.data.timeStamp //时间戳
             var nonceStr = res.data.data.nonceStr  //随机数
             var packages = res.data.data.package   //prepay_id
             var paySign = res.data.data.paySign   //签名
             var signType = 'MD5'
             var group_code = res.data.data.group_code   //group_code
-            
+
             var param = {
               "timeStamp": timeStamp,
               "package": packages,
@@ -266,12 +349,12 @@ Page({
             }
             that.pay(param);
           }
-       })
-  }else{
-      wx.navigateTo({
-      url: '../index/index',
-    })
-  }
+        })
+      }
+    }
+      
+     
+   
   },
 
   pay: function (param) {
@@ -292,6 +375,10 @@ Page({
               duration: 2000
             })
 
+            wx.navigateTo({
+              url: `../payResult/payResult?id=${promote_id}`
+            })
+          
           
               //支付成功之后将订单状态修改为已支付
               // wx.request({
@@ -325,15 +412,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    wx.hideLoading()  
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
-   
     //获取最新n条评价
     var _this = this
     wx.request({

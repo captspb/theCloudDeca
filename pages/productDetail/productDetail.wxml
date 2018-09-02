@@ -12,11 +12,11 @@
     </view> 
 
     <view>
-      <text class="price">定价：{{product.vip_price}}￥</text>
+      <text class="price">会员价：{{product.vip_price}}￥</text>
       <text class="old-price">{{product.price}}￥</text>
     </view>
     <view class="desc">
-    {{product.description}}
+    <!-- {{product.description}} -->
     </view>
     
     </view>

@@ -23,18 +23,15 @@ Page({
       url: `${api.proDetail}${id}`,
       success: function (res) {
         console.log(res.data.data)
-
         res.data.data.forEach(function (item) {
           item.img_url = `${api.baseUrl}${item.img_url}`
           item.tag = item.tag.split(',')
         })
-
         _this.setData({
           product: res.data.data[0]
         })
       }
     })
-
 
   },
   call: function () {
