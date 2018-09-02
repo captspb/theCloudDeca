@@ -35,6 +35,26 @@ Page({
     })
     var _this = this
     var token = wx.getStorageSync('token')
+
+
+    //获取banner
+    wx.request({
+      url: 'https://www.tosq20.cn/api/api/pic/list?ikey=15&merchant_id=15&type=8',
+      header: {
+        'Accept': 'application/json'
+      },
+      success: function (res) {
+
+        res.data.data.forEach(function (item) {
+          item.img_url = `${api.baseUrl}${item.img_url}`
+        })
+        console.log(res.data.data)
+
+        _this.setData({
+          banners: res.data.data
+        })
+      }
+    })  
     //获取商户门店信息
     wx.request({
       url: api.merchantInfo,
@@ -424,6 +444,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+
 
     //获取活动
     wx.request({

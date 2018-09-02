@@ -65,11 +65,15 @@ Page({
     wx.request({
       url: caseDetailArea,
       success: function (res) {
-        console.log(res.data.data)
+       
 
-        // res.data.data.forEach(function (item) {
-        //   item.img_url = `${api.baseUrl}${item.img_url}`
-        // })
+        res.data.data.forEach(function (item) {
+          item.pic_list.forEach(function(pic){
+            pic.img_url = `${api.baseUrl}${pic.img_url}`
+          })
+        })
+
+        console.log(res.data.data)
 
         _this.setData({
           areas: res.data.data
