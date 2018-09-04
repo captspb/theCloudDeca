@@ -3,7 +3,7 @@
   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
   <block wx:for="{{banners}}" wx:key="id">
     <swiper-item>
-      <image src="{{item.img_url}}" class="slide-image"/>
+      <image src="{{item.value}}" class="slide-image"/>
     </swiper-item>
   </block>
 </swiper>
@@ -23,7 +23,6 @@
     <image src="../../images/icon/09.png" class="icon-phone" bindtap="call"></image>  
   </view>
 </view>
-
 <view class="coupons" >
     <view class="coupon" bindtap="onPay" wx:for="{{coupons}}"  wx:key="id" data-id="{{item.id}}"  data-deposit="{{item.deposit}}" data-type="{{item.type}}"  data-description="{{item.description}}"  data-grouper="{{item.grouper}}"  wx:if="{{item.type !=3}}" >
       <view class="left">
@@ -65,12 +64,16 @@
           <text>{{item.case_name}}</text>     
         </view>
       </scroll-view>
+       <navigator open-type="navigate"  url="../case/case" style='margin-top:30rpx'>
+     <view class="see-more">查看全部案例 →</view>
+     </navigator>
   </view>
+   
 
   <view class="case-section remark-section" style='padding-top:0'>
      <view class="case-header flex-mid-be">
       <view>客户评价</view>
-      <navigator open-type="navigate"  url="../remarks/remarks" style='margin-right:30rpx'>全部评价 ></navigator>
+      <navigator open-type="navigate"  url="../remarks/remarks" >全部评价 ></navigator>
     </view> 
 
     <view class="remark-items">
@@ -98,6 +101,12 @@
          </view>
       </view>
     </view>
+    
+    
+
+     <navigator open-type="navigate"  url="../remarks/remarks" style='margin-right:30rpx'>
+     <view class="see-more">查看全部评价 →</view>
+     </navigator>
      
   </view>
 </view>

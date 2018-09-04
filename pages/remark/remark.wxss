@@ -17,6 +17,7 @@ textarea{
   height: 200rpx;
   border-bottom: 1rpx solid #ddd;
   width: 100%;
+  z-index: 1;
 }
 
 

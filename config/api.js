@@ -1,10 +1,12 @@
 var NewApiRootUrl = 'https://www.tosq20.cn'
 var merchant_id = 15
-var count = 3
+var count = 2
 
 module.exports = {
 
   baseUrl: NewApiRootUrl,//域名
+  banner: `${NewApiRootUrl}/api/wxconfig/list?ikey=banner&merchant_id=${merchant_id}`, //banners
+  logo: `${NewApiRootUrl}/api/wxconfig/list?ikey=logo&merchant_id=${merchant_id}`, //logo
   merchantInfo: `${NewApiRootUrl}/api/api/Store/list?merchant_id=${merchant_id}`, //案例数据
   promotion: `${NewApiRootUrl}/api/api/campaigntype/list?merchant_id=${merchant_id}`, //案例数据
 

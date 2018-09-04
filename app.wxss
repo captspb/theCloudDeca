@@ -88,7 +88,7 @@ view {
   top:0;
   left:0;
   background-color: rgba(0,0,0,.618);
-  z-index: 999;
+  z-index: 99999;
 }
 .auth-box {
   width:560rpx;

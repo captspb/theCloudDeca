@@ -33,9 +33,9 @@
        <image bindtap="tapStar" class="star" src="{{item.url}}" wx:for="{{stars}}" wx:for-item="item" data-index="{{index}}"></image>
      </view>
   </view>
-   <view class="remark-item">评价</view>
+   <view class="remark-item">评价 (质量如何，性价比怎么样？最少30字~)</view>
     <view>
-      <textarea name="remarkText" placeholder="亲，质量如何，外观怎样，性价比怎么样？最少30字~"></textarea>
+      <textarea name="remarkText" placeholder=""></textarea>
     </view>
     <view class="remark-item">上传照片</view>
      <view class="clearfix">

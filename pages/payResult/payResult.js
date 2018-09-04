@@ -42,25 +42,44 @@ Page({
         url: '../home/home',
       })
   },
-  onShareAppMessage: function (res) {
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(res.target)
-    }
+
+  onShareAppMessage: function (res) {  
     return {
-      title: '哈哈哈',
-      path: '/pages/home/home',
-      imageUrl: '/images/she.jpg',
-      success: (res) => {
-        console.log("转发成功", res);
+      title: '自定义转发标题',
+      path: '/pages/payResult/payResult?id=123',
+      imageUrl: '../../images/banner.jpg',
+      success: function (res) {
+        wx.showShareMenu({
+          withShareTicket: true
+        })
       },
-      fail: (res) => {
-        console.log("转发失败", res);
+      fail: function (res) {
+        // 转发失败
+        console.log("转发失败:" + JSON.stringify(res));
       }
+
     }
+  },
+
+  // onShareAppMessage: function (res) {
+  //   if (res.from === 'button') {
+  //     // 来自页面内转发按钮
+  //     console.log(res)
+  //   }
+  //   return {
+  //     title: '哈哈哈',
+  //     path: '/pages/payResult/payResult?id=123',
+  //     imageUrl: 'https://www.tosq20.cn/home/test/upload/1533395418c6c8.jpg'
+  //     // success: (res) => {
+  //     //   console.log("转发成功", res);
+  //     // },
+  //     // fail: (res) => {
+  //     //   console.log("转发失败", res);
+  //     // }
+  //   }
   
 
-  },
+  // },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

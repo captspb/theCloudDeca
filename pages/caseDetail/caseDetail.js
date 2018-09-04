@@ -35,6 +35,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.setNavigationBarTitle({
+      title: '案例详情'
+    })
 
     console.log(options.id)
 

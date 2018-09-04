@@ -1,9 +1,12 @@
 const util = require('../../utils/util.js');
 const api = require('../../config/api.js');
 const app = getApp()
+
+var ss = app.globalData.promotion_ids
 var title = "帅威橱柜"
 // pages/home/home.js
 var promote_id
+var promotion_ids = []
 Page({
 
   /**
@@ -29,6 +32,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) { 
+    console.log(ss)
 
     wx.showLoading({
       title: '加载中',
@@ -36,20 +40,34 @@ Page({
     var _this = this
     var token = wx.getStorageSync('token')
 
-
-    //获取banner
+  
+    //获取logo
     wx.request({
-      url: 'https://www.tosq20.cn/api/api/pic/list?ikey=15&merchant_id=15&type=8',
+      url: api.logo,
       header: {
         'Accept': 'application/json'
       },
       success: function (res) {
-
         res.data.data.forEach(function (item) {
-          item.img_url = `${api.baseUrl}${item.img_url}`
+          item.value = `${api.baseUrl}${item.value}`
         })
-        console.log(res.data.data)
+        console.log(res.data.data[0].value)
+        _this.setData({
+          logo_url: res.data.data[0].value
+        })
+      }
+    })  
 
+    //获取banner
+    wx.request({
+      url: api.banner,
+      header: {
+        'Accept': 'application/json'
+      },
+      success: function (res) {
+        res.data.data.forEach(function (item) {
+          item.value = `${api.baseUrl}${item.value}`
+        })
         _this.setData({
           banners: res.data.data
         })
@@ -66,8 +84,6 @@ Page({
         var phone_no = res.data.data[0].phone_no
         var lat = res.data.data[0].lat
         var lng = res.data.data[0].lng  
-        var logo = res.data.data[0].logo  
-        var logo_url = `${api.baseUrl}${logo}`
         
         _this.setData({
           main_business: main_business,
@@ -75,17 +91,17 @@ Page({
           phone_no: phone_no,
           latitude: lat,
           longitude: lng,
-          logo_url: logo_url,
           merchant_name: merchant_name
           
         })
 
         wx.setNavigationBarTitle({
-          title: merchant_name//页面标题为路由参数
+          title: merchant_name
         })
       }
     })  
     //获取活动
+   
     wx.request({
       url: api.promotions,
       header: {
@@ -93,10 +109,20 @@ Page({
       },      
       success: function (res) {
         console.log('活动')
+       
         console.log(res.data.data)
+        res.data.data.forEach(function(item){
+          promotion_ids.push(item.id)
+        })
+
+        app.globalData.promotion_ids = promotion_ids
+        console.log(promotion_ids)
+        console.log(app.globalData.promotion_ids)
+
         _this.setData({
           coupons: res.data.data
         })
+
       }
     })  
     //获取最新n条案例
@@ -191,7 +217,7 @@ Page({
                         latitude: latitude,
                         longitude: longitude,
                         name: address,
-                        scale: 28
+                        scale: 15
                       })
                     } else {
                       wx.showToast({
@@ -210,7 +236,7 @@ Page({
             latitude: latitude,
             longitude: longitude,
             name: address,
-            scale: 28
+            scale: 15
           })
         }
       }
@@ -321,7 +347,7 @@ Page({
   },
   onPay:function(e){
     promote_id = e.currentTarget.dataset.id 
-   
+    var campaign = app.globalData.campaign
     var total_fee = e.currentTarget.dataset.deposit
     var type = e.currentTarget.dataset.type
     var description = e.currentTarget.dataset.description
@@ -329,7 +355,8 @@ Page({
     var left = description - grouper
     var token = wx.getStorageSync('token')
     var that = this  
-
+    var phoneNumber = app.globalData.phoneNumber
+  
     if(token){
       if (type==2&&left==0) {   
           wx.showToast({
@@ -337,7 +364,13 @@ Page({
             icon: 'none',
             duration: 2000
           })
-      }else{
+      } else if (type == 1 && campaign[promote_id]){   
+          wx.showToast({
+            title: '已支付',
+            icon: 'none',
+            duration: 2000
+          })
+        } else{
         wx.request({
           url: 'https://www.tosq20.cn/api/api/campaignDetail/save',
           method: 'POST',
@@ -359,7 +392,6 @@ Page({
             var paySign = res.data.data.paySign   //签名
             var signType = 'MD5'
             var group_code = res.data.data.group_code   //group_code
-
             var param = {
               "timeStamp": timeStamp,
               "package": packages,
@@ -367,17 +399,13 @@ Page({
               "signType": "MD5",
               "nonceStr": nonceStr
             }
-            that.pay(param);
-            wx.navigateTo({
-              url: `../payResult/payResult?id=${promote_id}`
-            })
+            that.pay(param);     
           }
         })
+        
       }
     }
-      
-     
-   
+        
   },
 
   pay: function (param) {
@@ -388,44 +416,13 @@ Page({
       'signType': param.signType,
       'paySign': param.paySign,
       success: function (res) {
-        console.log(res)
-        wx.navigateBack({
-          delta: 1, // 回退前 delta(默认为1) 页面  
-          success: function (res) {
-          
-            wx.showToast({
-              title: '支付成功',
-              icon: 'success',
-              duration: 1000
-            })
-            wx.navigateTo({
-              url: `../payResult/payResult?id=${promote_id}`
-            })
 
-            
-          
-          
-              //支付成功之后将订单状态修改为已支付
-              // wx.request({
-              //   url: 'localhost:8080/changeOrderState',
-              //   method: 'POST',
-              //   header: { "Content-Type": "application/x-www-form-urlencoded" },
-              //   data: {
-              //     msg: '用户已成功支付，修改订单状态'
-              //   },
-              //   success: function (res) {
-              //     console.log('修改完成')
-              //     //引导用户查看订单
-              //   },
-              //   fail: function (err) {
-              //   }
-              // })
-          },
-          fail: function () {
-          },
-          complete: function () {
-          }
+        wx.navigateTo({
+          url: `../payResult/payResult?id=${promote_id}`
         })
+
+
+      
       },
       fail: function () {
         console.log("支付失败")
@@ -438,6 +435,8 @@ Page({
    */
   onReady: function () {
     wx.hideLoading()  
+
+    
   },
 
   /**

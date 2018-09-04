@@ -52,6 +52,8 @@ Page({
               item.img_url = `${api.baseUrl}${item.img_url}`
               item.tag = item.tag.split(',')
             })
+
+         
                   
             function Product(id, product_name){
                 this.id = id,
@@ -152,6 +154,8 @@ Page({
           theProducts: res.data.data,
           typeName:tabTitle
         })
+
+        console.log(res.data.data)
       }
     })    
 

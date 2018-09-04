@@ -39,20 +39,20 @@
 .main-business {
   font-size: 32rpx;
   color: #000000;
-  margin-bottom: 25rpx;
+  margin-bottom: 15rpx;
 }
 
 
 .coupon {
-  width:100%;
+  width:710rpx;
   height: 165rpx;
-  background-size: cover;
+  background-size:contain;
   border-radius: 8rpx;
   display: flex;
   margin-bottom: 20rpx;
-  background: white;
   justify-content: space-between;
   padding: 15rpx 20rpx;
+  background-image: url('https://www.tosq20.cn/home/test/upload/coupon.png');
 }
 
 .coupon .left-1 {
@@ -106,8 +106,11 @@
   line-height: 44rpx;
 }
 
+.remark-section .case-header {
+padding-right:30rpx;
+}
+
 .case-header {
-  
   font-size: 34rpx;
   border-bottom: 1rpx solid #dddddd;
   height:100rpx;
@@ -230,4 +233,13 @@ line-height: 28rpx;
 
 .finished {
   background: #8B8B8D !important;
+}
+
+
+
+.see-more {
+  text-align: center;
+  font-size: 26rpx;
+  color: #587EDF;
+  line-height: 50rpx;
 }

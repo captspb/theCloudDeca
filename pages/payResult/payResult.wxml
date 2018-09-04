@@ -7,11 +7,7 @@
        <text class="eta" wx:else>组团成功</text>
 
     </view>
-     
-
-
      <view class="gray-panel">
-    
         <view>
             <view class="title">享受优惠</view>
             <view class="flex-mid">
@@ -23,11 +19,10 @@
               <text class="gray">组团成功后返现，满1000返100</text>
             </view>
         </view>  
-
-        <view>
-           
+        <view>       
             <view class="result-actions">
-                <button open-type="share" class="invite"  wx:if="{{result.description-result.grouper>0}}">邀请好友</button>
+           
+                <button open-type="share" class="invite"   wx:if="{{result.description-result.grouper>0}}">邀请好友</button>
                <view class="btn-return-home" bindtap="tohome">返回首页</view>
                
             </view>

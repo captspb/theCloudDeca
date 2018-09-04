@@ -195,11 +195,12 @@ Page({
   },
 
   formSubmit: function (e) {
-    var order_no = app.globalData.order_no
+   
+    var promotion_ids = app.globalData.promotion_ids
     var name = '匿名'
     var avatarUrl = '../../images/icon/user.png'
     var token = wx.getStorageSync('token')
-    console.log('评论')
+   
     var remarkText = e.detail.value.remarkText
     if (this.data.userInfo){
       name = this.data.userInfo.nickName
@@ -209,9 +210,7 @@ Page({
     console.log('头像'+ avatarUrl)
     var _this = this
 
-    if (order_no){
-
-   
+    if (promotion_ids){
 
    if(starNum&&remarkText&&avatarUrl){
      console.log(remarkText)
