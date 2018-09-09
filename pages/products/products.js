@@ -13,7 +13,8 @@ Page({
     theProducts:[],
     typeName:"",
     type:1,
-    hasPhoneNumber:0
+    hasPhoneNumber:0,
+    phoneDeny:0
   },
 
   /**
@@ -45,16 +46,11 @@ Page({
         console.log(proUrl)      
         wx.request({
           url: proUrl,
-          success: function (res) {
-            console.log(res.data.data)        
-
+          success: function (res) {  
             res.data.data.forEach(function (item) {
               item.img_url = `${api.baseUrl}${item.img_url}`
               item.tag = item.tag.split(',')
-            })
-
-         
-                  
+            })                     
             function Product(id, product_name){
                 this.id = id,
                 this.product_name = product_name
@@ -79,7 +75,6 @@ Page({
             }
             console.log(res.data.data) 
 
-
             _this.setData({
               theProducts: res.data.data
             })
@@ -88,6 +83,22 @@ Page({
       }
     })  
 
+  },
+  openSetting: function () {
+    var that = this
+    if (wx.openSetting) {
+      wx.openSetting({
+        success: function (res) {
+          //尝试再次登录
+          that.login()
+        }
+      })
+    } else {
+      wx.showModal({
+        title: '授权提示',
+        content: '小程序需要您的微信授权才能使用哦~ 错过授权页面的处理方法：删除小程序->重新搜索进入->点击授权按钮'
+      })
+    }
   },
   getPhoneNumber: function (e) {
     var ency = e.detail.encryptedData;
@@ -101,11 +112,8 @@ Page({
     console.log('sessionk:' + sessionk)
     console.log('token:' + token)
     if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '未授权',
-        success: function (res) { }
+      this.setData({
+        phoneDeny: 1
       })
     } else {
       this.setData({

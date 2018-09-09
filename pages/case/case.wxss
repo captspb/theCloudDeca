@@ -5,6 +5,10 @@
   margin-bottom: 10rpx;
 }
 
+.area {
+  color:#F24D44;
+}
+
 .case-item {
   float: left;
   margin:50rpx 0 0 30rpx;

@@ -51,32 +51,44 @@
   display: flex;
   margin-bottom: 20rpx;
   justify-content: space-between;
-  padding: 15rpx 20rpx;
   background-image: url('https://www.tosq20.cn/home/test/upload/coupon.png');
 }
 
+.coupon .left {
+  padding:30rpx 10px 0 10px;
+  width: 460rpx;
+  box-sizing: border-box;
+}
+
 .coupon .left-1 {
-  font-size:34rpx;
+  font-size:28rpx;
   color: #000000;
-  margin-bottom: 26rpx
+  margin-bottom: 27rpx
 }
 
 
 .coupon .left-2 {
-  font-size: 30rpx;
+  font-size: 28rpx;
   color: #587EDF;
  
 }
-
+.coupon .right {
+   padding: 30rpx 0 0 0;
+   width: 250rpx;
+   box-sizing: border-box;
+}
 .coupon .right-1 {
-  font-size: 24prx;
+  font-size: 28rpx;
   color: #F24D44;
+  text-align: center;
+  margin-bottom: 25rpx;
 }
 
 .coupon .right-2 {
   font-size: 22rpx;
   color: #F24D44;
-  margin-bottom: 7rpx
+  margin-bottom: 10rpx;
+  text-align: center;
   
 }
 
@@ -89,6 +101,7 @@
   width:180rpx;
   height: 48rpx;
   line-height: 48rpx;
+  margin: 0 auto;
 }
 
 
@@ -115,6 +128,10 @@ padding-right:30rpx;
   border-bottom: 1rpx solid #dddddd;
   height:100rpx;
   margin-bottom: 50rpx;
+}
+
+.head-title{
+ font-weight: bold;
 }
 navigator {
   font-size: 26rpx;

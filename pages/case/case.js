@@ -89,28 +89,24 @@ Page({
    */
   onReachBottom: function () {
 
-    for(var i=1; i<5;i++){
-      var length = this.data.allCase.length-1;
-      var length = length + 1;
-      var moreCase = {
-        caseUrl: "../../images/banner.jpg",
-        caseTile: "印象公关简约风格",
-        caseId: `case_${length}`
-      }              
-      this.data.allCase.push(moreCase);    
-    }
-    
-    console.log(this.data.allCase);
-
-    wx.showLoading({
-      title: '加载中',
-    })
-
-    this.setData({
-      allCase: this.data.allCase
-    })
-
-    wx.hideLoading()
+    // for(var i=1; i<5;i++){
+    //   var length = this.data.allCase.length-1;
+    //   var length = length + 1;
+    //   var moreCase = {
+    //     caseUrl: "../../images/banner.jpg",
+    //     caseTile: "印象公关简约风格",
+    //     caseId: `case_${length}`
+    //   }              
+    //   this.data.allCase.push(moreCase);    
+    // }
+    // console.log(this.data.allCase);
+    // wx.showLoading({
+    //   title: '加载中',
+    // })
+    // this.setData({
+    //   allCase: this.data.allCase
+    // })
+    // wx.hideLoading()
 
   },
 

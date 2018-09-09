@@ -9,12 +9,12 @@
   </view>
 
 <view class="remark-wrapper" >
-  <view class="success-section flex-c-mid" wx:if="{{remarkOk}}"  wx:for="{{remarksData}}" wx:key="id">
+  <view class="success-section flex-c-mid" wx:if="{{remarkOk}}"  wx:key="id">
     <icon type="success" size="40"/>
     <text class="line1">感谢您的点评</text>
-    <text class="line2" wx:if="{{item.gift}}">10天内签单可凭此页面截图到店领取礼品
+    <text class="line2" wx:if="{{gift}}">10天内签单可凭此页面截图到店领取礼品
 </text>
-    <text class="line3" style='color:#F24D44'  wx:if="{{item.gift}}">{{item.gift}}</text>
+    <text class="line3" style='color:#F24D44'  wx:if="{{gift}}">{{gift}}</text>
   </view>
   <view wx:if="{{!remarkOk}}">
     <view class="flex-mid">
@@ -26,7 +26,7 @@
     </view>
   </view>
   <form bindsubmit="formSubmit" wx:if="{{!remarkOk}}">
-  <view class="remark-item">参与点评并签单奖励不锈钢锅一个</view>
+  <view class="remark-item" wx:if="{{gift}}">{{gift}}</view>
   <view class="flex-mid stars">
      <text class="remark-item">总体</text>
      <view>
@@ -54,8 +54,8 @@
 
  <view class="case-section remark-section"  wx:if="{{remarkOk}}">
      <view class="case-header flex-mid-be">
-      <view>客户评价</view>
-      <navigator open-type="navigate"  url="../remarks/remarks" style='margin-right:30rpx'>全部评价></navigator>
+      <view>评价详情</view>
+      <navigator open-type="navigate"  url="../remarks/remarks" style='margin-right:30rpx'></navigator>
     </view> 
     <view class="remark-items">
       <view class="remark-item flex-be" wx:for="{{remarksData}}" wx:for-item="item" wx:key="id">

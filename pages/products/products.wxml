@@ -1,11 +1,15 @@
 <view class="back">
    <view class="auth-cover" wx:if="{{hasPhoneNumber==0}}">
     <view class="auth-box">
-      <view>温馨提示</view>
+      <view class="warm-tip">温馨提示</view>
       <view class="tip-text">需要授权您的手机号码后才能使用，帅威橱柜不会将您的信息提供给第三方，现在登录~   </view>
       <button  open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber" class="wechat-longin-btn" >开启授权 </button>
     </view>
   </view>
+
+
+
+
   <scroll-view scroll-x class="scroll-view-x tabBar">
         <view data-tab="{{index}}"  wx:for="{{tabBars}}" wx:for-item="item" bindtap="changeTab" class="{{tabHigh == index ? 'highlighted tabBar-item' : 'tabBar-item'}}" data-title="{{item.category_name}}" data-id="{{item.id}}" wx:key="id">
           <view class="flex-c-mid">
@@ -14,7 +18,7 @@
           </view>        
         </view>
  </scroll-view>
- <view style="height:120rpx"></view>
+ <view style="height:100rpx"></view>
 
  <view class="product-section">
   <view class="type-name">{{typeName}}</view>
@@ -25,11 +29,11 @@
         <view>
           <text class="tag" wx:for="{{item.tag}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
         </view> 
-        <view><text class="price">会员价：{{item.vip_price}}￥</text><text class="old-price">{{item.price}}￥</text></view>
+        <view><text class="price">会员价:￥{{item.vip_price}}</text><text class="old-price">{{item.price}}</text></view>
     </view>
   </view>
   <view wx:else class="nothing-tip">
-    <image src="" class="nothing-image"></image>
+    <image src="https://www.tosq20.cn/home/test/upload/miss.png" class="nothing-image"></image>
     <view>抱歉！没找到相关商品～</view>     
   </view>
  </view>

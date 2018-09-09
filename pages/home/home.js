@@ -7,6 +7,7 @@ var title = "帅威橱柜"
 // pages/home/home.js
 var promote_id
 var promotion_ids = []
+var phoneNumber_2 = undefined
 Page({
 
   /**
@@ -191,6 +192,9 @@ Page({
     var latitude = Number(this.data.latitude)
     var longitude = Number(this.data.longitude)
 
+    console.log(latitude)
+    console.log(longitude)
+
     var address = this.data.address
 
     wx.getSetting({
@@ -312,16 +316,22 @@ Page({
     var token = wx.getStorageSync('token')
     app.globalData.ency = e.detail.ency
     this.setData({
+      cfmNoPhone: 0
+    })
+    
+    this.setData({
       hasPhoneNumber: true
     })
     if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
       wx.showModal({
         title: '提示',
         showCancel: false,
-        content: '未授权',
+        content: '未授权无法支付',
         success: function (res) { }
       })
     } else {
+      app.globalData.phoneNumber = 1
+      phoneNumber_2 =1
      this.setData({
        hadPhoneNumber:1
      })
@@ -356,14 +366,67 @@ Page({
     var token = wx.getStorageSync('token')
     var that = this  
     var phoneNumber = app.globalData.phoneNumber
-  
-    if(token){
-      if (type==2&&left==0) {   
+   
+    if (phoneNumber){
+      if (type==2) { 
+        if (campaign[promote_id]){
+          wx.showToast({
+            title: '已支付',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+        else if(left==0){
           wx.showToast({
             title: '组团已满',
             icon: 'none',
             duration: 2000
           })
+        }else {
+          wx.showModal({
+            title: '提示',
+            content: '支付定金后即可组团，点击确定支付',
+            success: function (res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+                wx.request({
+                  url: 'https://www.tosq20.cn/api/api/campaignDetail/save',
+                  method: 'POST',
+                  header: {
+                    'Accept': 'application/json',
+                    'Token': token
+                  },
+                  data: {
+                    total_fee: total_fee,
+                    type_id: promote_id,
+                    product_id: 1,
+                    remark: '好'
+                  },
+                  success: function (res) {
+                    console.log(res)
+                    var timeStamp = res.data.data.timeStamp //时间戳
+                    var nonceStr = res.data.data.nonceStr  //随机数
+                    var packages = res.data.data.package   //prepay_id
+                    var paySign = res.data.data.paySign   //签名
+                    var signType = 'MD5'
+                    var group_code = res.data.data.group_code   //group_code
+                    var param = {
+                      "timeStamp": timeStamp,
+                      "package": packages,
+                      "paySign": paySign,
+                      "signType": "MD5",
+                      "nonceStr": nonceStr
+                    }
+                    that.pay(param);
+                  }
+                })
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+        }  
+          
       } else if (type == 1 && campaign[promote_id]){   
           wx.showToast({
             title: '已支付',
@@ -404,10 +467,14 @@ Page({
         })
         
       }
+    }else {
+      that.setData({
+        cfmNoPhone:1
+      })
+      console.log('没有授权手机号')
     }
         
   },
-
   pay: function (param) {
     wx.requestPayment({
       'timeStamp': param.timeStamp,

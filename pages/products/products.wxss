@@ -54,6 +54,12 @@
   width:335rpx;
   height: 260rpx;
 }
+.product-item view {
+  width: 335rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
 
 .product-items {
   background: #fff;
@@ -84,7 +90,7 @@
   font-size: 26rpx;
   color: #808098;
   text-decoration: line-through;
-  margin-left: 30rpx;
+  margin-left: 10rpx;
 }
 
 .see-more {
@@ -102,7 +108,6 @@
 .nothing-image {
   width: 200rpx;
   height: 196rpx;
-  background: gray;
-  margin: 100rpx auto 20rpx auto;
+  margin: 100rpx auto 40rpx auto;
   display: block;
 }

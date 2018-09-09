@@ -1,4 +1,14 @@
 <view class="home">
+    <view class="auth-cover" wx:if="{{cfmNoPhone==1}}">
+    <view class="auth-box">
+      <view class="warm-tip">温馨提示</view>
+      <view class="tip-text">您手机号尚未授权，无法正常支付，点击确认重新授权。 </view>
+      
+       <button  open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber" class="wechat-longin-btn" >确定 </button>
+    </view>
+  </view>
+
+
   <swiper indicator-dots="{{indicatorDots}}"
   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
   <block wx:for="{{banners}}" wx:key="id">
@@ -25,28 +35,29 @@
 </view>
 <view class="coupons" >
     <view class="coupon" bindtap="onPay" wx:for="{{coupons}}"  wx:key="id" data-id="{{item.id}}"  data-deposit="{{item.deposit}}" data-type="{{item.type}}"  data-description="{{item.description}}"  data-grouper="{{item.grouper}}"  wx:if="{{item.type !=3}}" >
-      <view class="left">
-        <view class="left-1"  wx:if="{{item.type ==2}}" >{{item.description}}人{{item.name}}（还差{{item.description-item.grouper}}人）</view>
-         <view class="left-1"  wx:if="{{item.type ==1}}" >{{item.name}}</view>
-
-        <view class="left-2">{{item.rule}}</view>
+      <view class="left" wx:if="{{item.type ==1}}">
+         <view class="left-1">定金抵扣券({{item.rule}})</view>
+        <view class="left-2">商品还可享受会员价</view>
       </view>
-      <view class="right">
-        <view class="right-1">￥{{item.deposit}}</view>
-        <view  class="right-2">预付100抵500</view>
-        
-        <view wx:if="{{item.type ==1}}"  class="right-3">支付定金</view>
+      <view class="right" wx:if="{{item.type ==1}}">
+        <view class="right-1">￥{{item.deposit}}</view>   
+        <view class="right-3">支付定金</view>
+       
+      </view>
 
-        <view wx:if="{{item.type ==2&&item.description!=item.grouper}}"  class="right-3">
+        <view class="left" wx:if="{{item.type ==2}}">
+        <view class="left-1">组团返现({{item.rule}})</view>
+        <view class="left-2">定金缴纳后即可组团</view>
+      </view>
+      <view class="right" wx:if="{{item.type ==2}}">
+        <view class="right-1">{{item.description}}人团还差{{item.description-item.grouper}}人</view>
+           
+       <view wx:if="{{item.description!=item.grouper}}"  class="right-3">
             参与组团  
         </view>
-
-         <view wx:if="{{item.type ==2&&item.description==item.grouper}}"  class="right-3 finished">
+         <view wx:if="{{item.description==item.grouper}}"  class="right-3 finished">
             组团成功
-        </view>
-
-
-       
+        </view>  
       </view>
     </view>
    
@@ -55,7 +66,7 @@
 
   <view class="case-section" style='padding-top:0'>
     <view class="case-header flex-mid-be">
-      <view>客户案例</view>
+      <view class="head-title">客户案例</view>
       <navigator open-type="navigate"  url="../case/case" >全部案例 ></navigator>
     </view>
      <scroll-view class="scroll-view-x case-scroll" scroll-x >
@@ -72,7 +83,7 @@
 
   <view class="case-section remark-section" style='padding-top:0'>
      <view class="case-header flex-mid-be">
-      <view>客户评价</view>
+      <view class="head-title">客户评价</view>
       <navigator open-type="navigate"  url="../remarks/remarks" >全部评价 ></navigator>
     </view> 
 

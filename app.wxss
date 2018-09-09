@@ -121,3 +121,16 @@ view {
   height: 0;
   width:0;
 }
+
+.loading {
+  position: absolute;
+  left: 50%;
+  width: 64rpx;
+  height: 64rpx;
+  margin-left:-16rpx;
+  top: 300rpx;
+}
+
+.warm-tip {
+  font-size: 40rpx;
+}

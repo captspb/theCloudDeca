@@ -23,6 +23,7 @@
   },
   "tabBar": {
     "selectedColor": "#F24D44",
+    "color": "#F24D44",
     "list": [
       {
         "pagePath": "pages/home/home",
@@ -38,7 +39,7 @@
       },
       {
         "pagePath": "pages/remark/remark",
-        "text": "点评",
+        "text": "写点评",
         "iconPath": "images/icon/03icon.png",
         "selectedIconPath": "images/icon/06icon.png"
       }

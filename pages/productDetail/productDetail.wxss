@@ -17,8 +17,9 @@
   min-height: 750rpx;
 }
 
-image{
-height: 300rpx;
+.banner-img{
+  height: 300rpx;
+  width: 100%;
 }
 
 .desc{
@@ -64,4 +65,9 @@ height: 300rpx;
   color:#fff;
   bottom: 0;
   width:100%;
+}
+
+.slide-image {
+  display: block;
+  width: 100%;
 }

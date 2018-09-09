@@ -65,6 +65,32 @@ Page({
         }
       })
     }
+    var _this = this
+
+    //获取评价有礼活动
+    wx.request({
+      url: api.promotions,
+      header: {
+        'Accept': 'application/json'
+      },
+      success: function (res) {
+        var gift=''
+        console.log(res.data.data)
+
+        res.data.data.forEach(function(item){
+            if(item.type==3){
+              gift = item.gift
+            }
+        })
+
+        _this.setData({
+          gift: gift
+        })
+
+      }
+    })  
+
+
     // wx.showModal({
     //   title: '提示',
     //   content: '为保证点评真实性，您付完定金后，才可参与点评！',
@@ -195,8 +221,19 @@ Page({
   },
 
   formSubmit: function (e) {
-   
+    var orders= []
     var promotion_ids = app.globalData.promotion_ids
+    var campaign = app.globalData.campaign
+    console.log(promotion_ids)
+    console.log(campaign)
+
+    promotion_ids.forEach(function(item){
+      if (campaign[item]){
+        orders.push(campaign[item])
+      }   
+    })
+    console.log(orders)
+    
     var name = '匿名'
     var avatarUrl = '../../images/icon/user.png'
     var token = wx.getStorageSync('token')
@@ -210,8 +247,7 @@ Page({
     console.log('头像'+ avatarUrl)
     var _this = this
 
-    if (promotion_ids){
-
+    if (orders.length>0){
    if(starNum&&remarkText&&avatarUrl){
      console.log(remarkText)
      console.log(remarkText.length)
@@ -277,7 +313,8 @@ Page({
                     console.log(userId)
                     wx.request({
                       url: `${api.EvaluateMe}${userId}`,
-                      success: function (res) {                                  
+                      success: function (res) {     
+                        console.log(res.data.data)                             
                         res.data.data.forEach(function (item) {
                           item.pic_list.forEach(function (t) {
                             t.img_url = `${api.baseUrl}${t.img_url}`

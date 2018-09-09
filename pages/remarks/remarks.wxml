@@ -1,7 +1,8 @@
  <view class="panel" style='padding-top:20rpx'>
-
- <view class="remark-items">
-      <view class="remark-item flex-be" wx:for="{{remarksData}}" wx:for-item="item">
+ <!-- <view wx:if="{{!remarksData}}">数据加载中。。。</view> -->
+ <image src="../../images/icon/loading.gif" wx:if="{{!remarksData}}" class="loading"></image>
+ <view class="remark-items" wx:else>
+      <view class="remark-item flex-be"  wx:for="{{remarksData}}" wx:for-item="item">
          <image src="{{item.img_url}}" class="remark-avatar"></image>
          <view style="width:600rpx">
            <view class="flex-be">
@@ -15,6 +16,8 @@
            </view>
          </view>
       </view>
+
+     
     </view>
      
  </view>

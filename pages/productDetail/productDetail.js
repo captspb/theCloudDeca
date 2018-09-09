@@ -8,7 +8,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    indicatorDots: true,
+    autoplay: true,
+    interval: 5000,
+    duration: 1000
   },
 
   /**
@@ -29,6 +32,10 @@ Page({
         res.data.data.forEach(function (item) {
           item.img_url = `${api.baseUrl}${item.img_url}`
           item.tag = item.tag.split(',')
+
+          item.pic_list.forEach(function(t){
+            t.img_url = `${api.baseUrl}${t.img_url}`
+          })
         })
         _this.setData({
           product: res.data.data[0]
